@@ -1,0 +1,15 @@
+.day {
+  border: 1px solid #EBF0FA;
+  height: 10em;
+  width: 15em;
+  padding: 1em;
+  border-radius: 2em;
+}
+
+.overview {
+  height: 60%;
+}
+
+.little-details {
+  color: #BAC3DF;
+}
