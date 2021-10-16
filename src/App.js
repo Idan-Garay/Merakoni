@@ -1,7 +1,10 @@
+import React from "react";
+import "./App.css";
+
 const App = () => {
   return (
-    <div>
-      <h1>TodoApp asdas</h1>
+    <div className="app">
+      Hello World <h1 className="hello">Hello</h1>
     </div>
   );
 };

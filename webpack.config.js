@@ -1,58 +1,42 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
-const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
-const isProduction = process.env.NODE_ENV == "production";
+const port = process.env.PORT || 3000;
 
-const stylesHandler = MiniCssExtractPlugin.loader;
-
-const config = {
-  entry: "./src/index.js",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-  },
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "index.html",
-    }),
-
-    new MiniCssExtractPlugin(),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
+module.exports = {
+  mode: "development",
+  entry: path.resolve(__dirname, "./src/index.js"),
+  output: { filename: "bundle.[hash].js" },
+  devtool: "inline-source-map",
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/i,
-        loader: "babel-loader",
-      },
+      { test: /\.(js)$/, exclude: /node_modules/, use: ["babel-loader"] },
       {
         test: /\.css$/i,
-        use: [stylesHandler, "css-loader", "postcss-loader"],
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: "asset",
+        test: /\.(png|svg|jpg|jpeg|gif)/,
+        type: "asset/resource",
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
-};
-
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-  } else {
-    config.mode = "development";
-  }
-  return config;
+  plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
+  devServer: {
+    host: "localhost",
+    port: port,
+    historyApiFallback: true,
+    open: true,
+  },
 };
