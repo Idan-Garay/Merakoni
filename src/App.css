@@ -1,12 +1,20 @@
 .app {
-  background-color: aqua;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
-h1 {
-  border: 1px solid black;
+.left {
+  width: 30%;
+  height: 100%;
+  padding: 1em;
+  /* border: 1px solid black; */
 }
 
-.hello {
-  color: blue;
-  background: #000;
+.right {
+  padding: 1em;
+  background-color: #FFFFFF;
+  border-radius: 3em;
+  width: 100%;
+  height: 100%;
 }
