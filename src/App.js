@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Day from "./components/Day";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const days = [
@@ -14,7 +15,9 @@ const App = () => {
   ];
   return (
     <div className="app">
-      <div className="left">dashboard</div>
+      <div className="left">
+        <NavBar />
+      </div>
       <div className="right">
         <header>utilities</header>
         <main>
