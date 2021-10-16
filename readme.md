@@ -4,8 +4,8 @@ a final output that contains all dependencies.
 
 Ways to run this project:
 
-1. npm run start -> compiles the bundle
-2. npm run serve -> runs the project and enables live-reloading
+1. npm run start // -> compiles the bundle
+2. npm run serve // -> runs the project and enables live-reloading
 
 
-- Idan
+-Idan
