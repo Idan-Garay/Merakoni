@@ -14,8 +14,13 @@
 
 .navBar ul li {
   padding: 1em;
+  cursor: pointer;
 }
+.navBar ul li:active {
+  padding: 1em;
 
+  background-color: #754082;
+}
 .navBar ul li:hover {
   background-color: #643a82;
   color: #ffffff;

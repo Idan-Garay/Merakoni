@@ -8,8 +8,8 @@ const Utilities = () => {
     <div className="utilities">
       <div className="flex-no-wrap">
         <h2>Habit Tracker</h2>
-        <div>
-          <FaEllipsisV />
+        <div className="ellipsis-day">
+          <FaEllipsisV className="point" />
           <CreateDay />
         </div>
       </div>

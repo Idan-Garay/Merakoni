@@ -1,3 +1,16 @@
+.ellipsis-day {
+  display: flex;
+  align-items: center;
+}
+
+.ellipsis-day button {
+  margin-left: 15px;
+}
+
+.point {
+  cursor: pointer;
+}
+
 .utilities {
   display: flex;
   flex-wrap: no-wrap;
