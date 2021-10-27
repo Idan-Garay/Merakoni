@@ -3,12 +3,22 @@
   padding: 0;
 }
 
+html {
+  height: 100vh;
+}
+
 body {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
-  background-color: #F7F8FD;
+  background-color: #f7f8fd;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 #root {
-  height: 100%;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to right, #643a86, #784486);
+  color: white;
 }

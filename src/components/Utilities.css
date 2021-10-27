@@ -1,0 +1,41 @@
+.utilities {
+  display: flex;
+  flex-wrap: no-wrap;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.flex-no-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grp-2 {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.search-bar {
+  margin-top: 1.5em;
+  background-color: #54217e;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 3em;
+  border-radius: 5px;
+  padding: 0 1em;
+}
+
+.search-input {
+  margin-left: 1em;
+}
+
+.search-input input {
+  border: none;
+  background-color: transparent;
+  color: white;
+  height: 100%;
+  margin-left: 5px;
+  outline: none;
+}

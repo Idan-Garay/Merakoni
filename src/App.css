@@ -1,35 +1,28 @@
-.app {
+#app {
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-direction: column;
+  height: 100vh;
+  color: #ffffff;
 }
 
-.left {
+.main-section {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 90%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.left-content {
+  width: 70%;
+  height: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-content {
   width: 30%;
-  height: 100%;
   padding: 1em;
-  /* border: 1px solid black; */
-}
-
-.right {
-  padding: 1em;
-  background-color: #FFFFFF;
-  border-radius: 3em;
-  width: 100%;
   height: 100%;
-}
-
-.right header {
-  height: 2em;
-  border-bottom: 1px solid black;
-}
-
-.day-section {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.day-section > * {
-  margin-right: 1em;
-  margin-bottom: 1em;
 }

@@ -1,3 +1,37 @@
-.navBar ul{
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 1em;
+}
+
+.navBar ul {
   list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.navBar ul li {
+  padding: 1em;
+}
+
+.navBar ul li:hover {
+  background-color: #643a82;
+  color: #ffffff;
+}
+
+.navBar ul li a:hover {
+  color: #ffffff;
+}
+
+.navBar ul li a {
+  text-decoration: none;
+  color: #ceb9e1;
+}
+
+.navBar {
+  background-color: #54217e;
+  color: #ceb9e1;
+  height: 3em;
 }

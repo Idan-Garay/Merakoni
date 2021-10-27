@@ -1,9 +1,8 @@
 .day {
-  border: 1px solid #EBF0FA;
-  height: 10em;
-  width: 15em;
+  min-height: 15em;
+  width: 24%;
   padding: 1em;
-  border-radius: 2em;
+  border-radius: 10px;
 }
 
 .overview {
@@ -11,5 +10,5 @@
 }
 
 .little-details {
-  color: #BAC3DF;
+  color: #bac3df;
 }
