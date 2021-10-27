@@ -23,8 +23,8 @@ const App = () => {
         <main>
           <h1>Daily List</h1>
           <section className="day-section">
-            {days.map((day) => (
-              <Day day={day} />
+            {days.map((day, index) => (
+              <Day day={day} key={index} />
             ))}
           </section>
         </main>
