@@ -1,0 +1,28 @@
+.right-content {
+  border-left: 2px solid #83528d;
+}
+
+.days-section {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: flex-start;
+  overflow-y: auto; 
+}
+
+.day {
+  margin-right: 2em;
+  margin-bottom: 1em;
+  background-color: #d8d8d82f;
+  border: 1px solid #ebf0fa71;
+}
+
+.days-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.days-section {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

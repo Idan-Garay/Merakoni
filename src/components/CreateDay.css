@@ -1,0 +1,9 @@
+.create-day-btn {
+  background-color: #fe888a;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
