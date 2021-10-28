@@ -1,0 +1,9 @@
+.task-form {
+  color: #393e41;
+  padding: 1em;
+}
+
+.task-form h1 {
+  border-bottom: 2px solid #e9746d;
+  width: 100%;
+}

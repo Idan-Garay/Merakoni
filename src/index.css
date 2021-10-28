@@ -19,6 +19,14 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to right, #643a86, #784486);
+  /* background-image: linear-gradient(
+    to right bottom,
+    #d6c6f0,
+    #e3cfef,
+    #edd8ef,
+    #f4e3f1,
+    #f8eef4
+  ); */
+  background-color: #f3f3f3;
   color: white;
 }

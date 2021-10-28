@@ -32,12 +32,13 @@
 
 .search-bar {
   margin-top: 1.5em;
-  background-color: #54217e;
+  background-color: silver;
   display: flex;
   flex-wrap: nowrap;
   height: 3em;
   border-radius: 5px;
   padding: 0 1em;
+  color: white;
 }
 
 .search-input {
