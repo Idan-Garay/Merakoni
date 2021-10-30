@@ -1,23 +1,24 @@
-import './App.css';
+import './Task.css';
+import React, { useState } from 'react';
+import Form from './components/Form';
+import TodoList from './components/TodoList';
 
-function App() {
+
+function Task() {
+  const [inputText, setInputText] = useState("");
+  const [todos, setTodo] = useState([]);
+
   return (
-    <div className="App">
+    <div className="Task">
       <div id="Search">
-        <h1>To Do List</h1>
-        <input type="text" placeholder="Enter task"></input>
-        <span class="Add">Add</span>
+        <header>
+          <h1>What are your plans?</h1>
+        </header>
+        <Form inputText={inputText} todos={todos} setTodo={setTodo} setInputText={setInputText}/>
+        <TodoList setTodo={setTodo} todos={todos}/>
       </div>
-
-      <ul id="List">
-        <li><input type="checkbox" class="check"></input>Buy Groceries<span class="close">&times;</span></li>
-        <li><input type="checkbox" class="check"></input>Study for Midterm Exam<span class="close">&times;</span></li>
-        <li><input type="checkbox" class="check"></input>Pass Assignment<span class="close">&times;</span></li>
-        <li><input type="checkbox" class="check"></input>Make Pancakes<span class="close">&times;</span></li>
-        <li><input type="checkbox" class="check"></input>Fix bag<span class="close">&times;</span></li>
-      </ul>
     </div>
   );
 }
 
-export default App;
+export default Task;
