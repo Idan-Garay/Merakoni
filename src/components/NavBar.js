@@ -8,24 +8,16 @@ const NavBar = () => {
       <h1>Merakoni</h1>
       <ul>
         <NavLink to="/" activeClassName="selected">
-          <li>
-            <a href="#">Home</a>
-          </li>
+          <li>Home</li>
         </NavLink>
         <NavLink to="/history">
-          <li>
-            <a href="#">History</a>
-          </li>
+          <li>History</li>
         </NavLink>
         <NavLink to="/report">
-          <li>
-            <a href="#">Report</a>
-          </li>
+          <li>Report</li>
         </NavLink>
         <NavLink to="/settings">
-          <li>
-            <a href="#">Settings</a>
-          </li>
+          <li>Settings</li>
         </NavLink>
       </ul>
       <div className="profile">profile</div>
