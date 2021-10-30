@@ -30,8 +30,8 @@ const Main = () => {
           ))}
         </div>
       </div>
-      {showModal && <DayForm toggleModal={toggleModal} />}
       <div className="right-content">calendar</div>
+      {/* {showModal && <DayForm toggleModal={toggleModal} />}  makee it a page for functionality */}
     </main>
   );
 };
