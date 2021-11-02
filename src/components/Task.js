@@ -1,8 +1,7 @@
-import './Task.css';
-import React, { useState } from 'react';
-import Form from './components/Form';
-import TodoList from './components/TodoList';
-
+import "./Task.css";
+import React, { useState } from "react";
+import Form from "./Form";
+import TodoList from "./TodoList";
 
 function Task() {
   const [inputText, setInputText] = useState("");
@@ -14,8 +13,13 @@ function Task() {
         <header>
           <h1>What are your plans?</h1>
         </header>
-        <Form inputText={inputText} todos={todos} setTodo={setTodo} setInputText={setInputText}/>
-        <TodoList setTodo={setTodo} todos={todos}/>
+        <Form
+          inputText={inputText}
+          todos={todos}
+          setTodo={setTodo}
+          setInputText={setInputText}
+        />
+        <TodoList setTodo={setTodo} todos={todos} />
       </div>
     </div>
   );

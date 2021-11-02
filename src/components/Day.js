@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Day.css";
 import { FaEllipsisV } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Day = ({ day }) => {
   const [show, setShow] = useState(false);
@@ -8,10 +9,14 @@ const Day = ({ day }) => {
     setShow(!show);
   };
 
+  console.log(day);
+
   return (
     <div className="day">
       <div className="top flex-no-wrap baseline">
-        <h2>[Highlight of the Day]</h2>
+        <Link to="/day">
+          <h2>[Highlight of the Day]</h2>
+        </Link>
         <ul className="dropdown-menu">
           <FaEllipsisV onClick={toggle} className="point" />
           {show ? (
@@ -25,7 +30,7 @@ const Day = ({ day }) => {
       <div className="overview"></div>
       <div className="little-details">
         <p>[n] tasks</p>
-        <p>{day}</p>
+        <p>{day.name}</p>
       </div>
     </div>
   );

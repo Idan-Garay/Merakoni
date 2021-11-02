@@ -6,15 +6,17 @@ import DayForm from "./DayForm";
 
 const Main = () => {
   const [showModal, setShowModal] = useState(false);
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  // 0 - 6 from sunday(0) to saturday(6)
+  const [currDate, setCurrDate] = useState(new Date().getDay());
+  const [days, setDays] = useState([
+    { name: "Sunday", tasks: [], date: null },
+    { name: "Monday", tasks: [], date: null },
+    { name: "Tuesday", tasks: [], date: null },
+    { name: "Wednesday", tasks: [], date: null },
+    { name: "Thursday", tasks: [], date: null },
+    { name: "Friday", tasks: [], date: null },
+    { name: "Saturday", tasks: [], date: null },
+  ]);
 
   const toggleModal = () => {
     setShowModal(!showModal);
