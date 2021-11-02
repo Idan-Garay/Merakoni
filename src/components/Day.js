@@ -3,19 +3,17 @@ import "./Day.css";
 import { FaEllipsisV } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Day = ({ day }) => {
+const Day = ({ day, setDayId }) => {
   const [show, setShow] = useState(false);
   const toggle = () => {
     setShow(!show);
   };
 
-  console.log(day);
-
   return (
     <div className="day">
       <div className="top flex-no-wrap baseline">
-        <Link to="/day">
-          <h2>[Highlight of the Day]</h2>
+        <Link to={`/day/${day.id}`}>
+          <h2 onClick={() => setDayId(day.id)}>[Highlight of the Day]</h2>
         </Link>
         <ul className="dropdown-menu">
           <FaEllipsisV onClick={toggle} className="point" />
