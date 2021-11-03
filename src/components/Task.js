@@ -4,7 +4,7 @@ import Form from "./Form";
 import TodoList from "./TodoList";
 import { TasksContext } from "../App";
 
-function Task({ dayId }) {
+function Task({ id }) {
   const { days } = useContext(TasksContext);
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
@@ -14,7 +14,7 @@ function Task({ dayId }) {
   };
 
   useEffect(() => {
-    const { tasks } = days.find((day) => day.id === dayId)
+    const { tasks } = days.find((day) => day.dayId.get("day") === id);
     setTodos(tasks || []);
   }, []);
 

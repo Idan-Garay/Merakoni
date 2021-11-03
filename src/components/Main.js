@@ -7,14 +7,14 @@ import { useParams, Route } from "react-router-dom";
 import { TasksContext } from "../App";
 
 const Main = () => {
-  const { days, setDayId } = useContext(TasksContext);
+  const { days } = useContext(TasksContext);
 
   const [showModal, setShowModal] = useState(false);
   // 0 - 6 from sunday(0) to saturday(6)
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-
+  
   return (
     <>
       <main className="main-section">
@@ -22,7 +22,7 @@ const Main = () => {
           <Utilities toggleModal={toggleModal} />
           <div className="days-section">
             {days.map((day, index) => (
-              <Day day={day} key={index} setDayId={setDayId} />
+              <Day dayIdx={index} day={day} key={index} />
             ))}
           </div>
         </div>

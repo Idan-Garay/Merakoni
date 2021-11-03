@@ -3,11 +3,11 @@ import TaskComponent from "../components/Task";
 import { useParams } from "react-router-dom";
 
 const Task = () => {
-  let { dayId } = useParams();
+  let { id } = useParams();
 
   return (
     <main>
-      <TaskComponent dayId={parseInt(dayId)} />
+      <TaskComponent id={parseInt(id)} />
     </main>
   );
 };
