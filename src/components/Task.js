@@ -1,22 +1,16 @@
 import "./Task.css";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "./Form";
 import TodoList from "./TodoList";
-import { TasksContext } from "../App";
 
-function Task({ id }) {
-  const { days } = useContext(TasksContext);
+function Task({ day }) {
   const [inputText, setInputText] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(day ? day.tasks : []);
 
   const handleSubmit = () => {
-    dispatch({ type: "ADD TASK", value: inputText });
+    day.tasks = todos;
+    dispatch({ type: "ADD TASK", value: day });
   };
-
-  useEffect(() => {
-    const { tasks } = days.find((day) => day.dayId.get("day") === id);
-    setTodos(tasks || []);
-  }, []);
 
   return (
     <div className="Task">

@@ -18,7 +18,9 @@ const Day = ({ dayIdx, day }) => {
   return (
     <div className="day">
       <div className="top flex-no-wrap baseline">
-        <Link to={`/day/${day.dayId.get("day")}`}>
+        <Link
+          to={{ pathname: `/day/${day.dayId.get("day")}`, state: { ...day } }}
+        >
           <h2>[Highlight]</h2>
         </Link>
         <ul className="dropdown-menu">
