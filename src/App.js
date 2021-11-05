@@ -14,9 +14,10 @@ export const TasksContext = React.createContext();
 
 const reducer = (state, action) => {
   const { value } = action;
+
   switch (action.type) {
     case "ADD TASK":
-      state[value.get("day")] = value;
+      state[value.dayId.get("day")] = value;
       return { ...state };
     case "DELETE TASK":
       console.log("deleteTask");
@@ -44,7 +45,7 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
-          <Route path="/day/:id" >
+          <Route path="/day/:id">
             <TaskPage />
           </Route>
         </Switch>

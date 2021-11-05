@@ -1,19 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Form.css";
 import { IoIosAddCircle } from "react-icons/io";
-
-const Form = ({ setInputText, todos, setTodo, inputText }) => {
+const Form = ({ inputText, setInputText, addTask }) => {
   const inputHandler = (e) => {
     setInputText(e.target.value);
-  };
-
-  const submitTodoHandler = (e) => {
-    e.preventDefault();
-    setTodo([
-      ...todos,
-      { text: inputText, completed: false, id: Math.random() * 1000 },
-    ]);
-    setInputText("");
   };
 
   return (
@@ -25,7 +15,7 @@ const Form = ({ setInputText, todos, setTodo, inputText }) => {
         className="todo-input"
         placeholder="Enter a task..."
       />
-      <button onClick={submitTodoHandler} className="todo-button" type="submit">
+      <button onClick={addTask} className="todo-button" type="submit">
         <IoIosAddCircle />
       </button>
     </div>
