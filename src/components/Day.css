@@ -7,6 +7,19 @@
 
 .overview {
   height: 60%;
+  padding: 5px 0px;
+}
+
+.overview ul {
+  display: list-item;
+  list-style-type: circle;
+}
+
+.overview li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .little-details {

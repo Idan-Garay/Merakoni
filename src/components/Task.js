@@ -1,12 +1,27 @@
-import './Task.css';
-import React, { useState } from 'react';
-import Form from './components/Form';
-import TodoList from './components/TodoList';
+import "./Task.css";
+import React, { useState, useContext } from "react";
+import Form from "./Form";
+import TodoList from "./TodoList";
+import * as dayjs from "dayjs";
+import { TasksContext } from "../App";
 
-
-function Task() {
+function Task({ day }) {
   const [inputText, setInputText] = useState("");
-  const [todos, setTodo] = useState([]);
+  const [todos, setTodos] = useState(day ? day.tasks : []);
+  const { dispatch } = useContext(TasksContext);
+
+  const handleSubmit = () => {
+    const task = {
+      taskID: day.tasks.length + 1,
+      description: inputText,
+      label: "red",
+      done: false,
+      date_created: dayjs(new Date(), "DD/MM/YYYYY"),
+    };
+    setTodos([...todos, task]);
+    day.tasks = todos;
+    dispatch({ type: "ADD TASK", value: day });
+  };
 
   return (
     <div className="Task">
@@ -14,8 +29,12 @@ function Task() {
         <header>
           <h1>What are your plans?</h1>
         </header>
-        <Form inputText={inputText} todos={todos} setTodo={setTodo} setInputText={setInputText}/>
-        <TodoList setTodo={setTodo} todos={todos}/>
+        <Form
+          inputText={inputText}
+          addTask={handleSubmit}
+          setInputText={setInputText}
+        />
+        <TodoList setTodos={setTodos} todos={todos} />
       </div>
     </div>
   );
