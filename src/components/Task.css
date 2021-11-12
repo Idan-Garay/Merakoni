@@ -44,7 +44,20 @@
 .update_form_div {
     display: grid;
     align-items: center;
-    margin: 100px auto;
+    margin: 100px auto 0 auto;
+    padding: 50px;
+    height: 100%;
+    width: 50%;
+    border-radius: 20px;
+    border: 2px solid salmon;
+    background-color: white;
+    gap: 10px;
+}
+
+.label_form_div {
+    display: grid;
+    align-items: center;
+    margin: 50px auto 0 auto;
     padding: 50px;
     height: 100%;
     width: 50%;
