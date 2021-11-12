@@ -1,43 +1,56 @@
-import React from "react";
-import "./Todo.css";
+import React, {useState} from 'react';
+import TodoForm from './TodoForm';
 import { MdDelete, MdEdit } from "react-icons/md";
+import {AiOutlineCalendar} from 'react-icons/ai';
 
-const Todo = ({ text, todo, todos, setTodo }) => {
-  const deleteHandler = () => {
-    setTodo(todos.filter((e) => e.id !== todo.id));
-  };
-  const completeHandler = () => {
-    setTodo(
-      todos.map((item) => {
-        if (item.id === todo.id) {
-          return {
-            ...item,
-            completed: !item.completed,
-          };
-        }
-        return item;
-      })
-    );
-  };
+function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
+    const [edit, setEdit] = useState({
+        id: null,
+        value: '',
+        label: '',
+        week: ''
+    });
 
-  return (
-    <div className="todo">
-      <input
-        onClick={completeHandler}
-        type="checkbox"
-        className="complete-btn"
-      />
-      <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-        {text}
-      </li>
-      <button className="complete-btn">
-        <MdEdit />
-      </button>
-      <button onClick={deleteHandler} className="trash-btn">
-        <MdDelete />
-      </button>
-    </div>
-  );
-};
+    const submitUpdate = value => {
+        updateToDo(edit.id, value)
+        setEdit({
+            id: null,
+            value: '',
+            label: '',
+            week: ''
+        });
+    };
 
-export default Todo;
+    if(edit.id){
+        return <TodoForm edit={edit} onSubmit={submitUpdate}/>
+    }
+
+    return toDos.map((toDo, index) => (
+        <div className={toDo.isComplete ? 'todo_row complete': 'todo_row'} key={index}>
+            <div className="text" key={toDo.id} onClick={() =>  completeToDo(toDo.id)}>
+                {toDo.text}
+            </div>
+            <div className="icons">
+                <div className="task_label">
+                    <span>{toDo.label}</span>
+                </div>
+                <div className="week_day">
+                    <AiOutlineCalendar 
+                        className='calendar_icon'
+                    />
+                    {toDo.date}
+                </div>
+                <MdEdit 
+                    onClick={() => setEdit({id: toDo.id, value: toDo.text, label: toDo.label, week: toDo.week})}
+                    className='edit_icon'
+                />
+                <MdDelete
+                    onClick={() => removeToDo(toDo.id)}
+                    className='delete_icon'
+                />
+            </div>
+        </div>
+    ))
+}
+
+export default Todo

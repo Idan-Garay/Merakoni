@@ -45,7 +45,7 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
-          <Route path="/day/:id">
+          <Route path="/day">
             <TaskPage />
           </Route>
         </Switch>

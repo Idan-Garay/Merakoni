@@ -1,7 +1,9 @@
 import React from "react";
-import TaskComponent from "../components/Task";
+import TodoList from '../components/TodoList';
 import { useParams } from "react-router-dom";
 import { TasksContext } from "../App";
+import '../components/Task.css';
+
 
 const Task = () => {
   let { id } = useParams();
@@ -9,7 +11,9 @@ const Task = () => {
 
   return (
     <main>
-      <TaskComponent day={days[id]} />
+      <div id="tasks">
+        <TodoList/>
+      </div>
     </main>
   );
 };
