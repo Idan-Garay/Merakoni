@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {labelData} from "./data";
+import {labelData} from "./taskdata";
 
 
 function TodoForm(props) {
-    const [input, setInputs] = useState(props.edit ? props.edit.value: '');
-    const [week, setWeek] = useState(props.edit ? props.edit.week: '');
+    const [input, setInputs] = useState(props.edit ? props.edit.description: '');
+    const [date, setDate] = useState(props.edit ? props.edit.date_created: '');
     const [label, setLabel] = useState(props.edit ? props.edit.label: '');
-    
     const [options, setOptions] = useState([]);
-
     const minDate = new Date().toISOString().slice(0, 10);
 
     const handleChange = e => {
@@ -19,25 +17,26 @@ function TodoForm(props) {
         setLabel(e.target.value);
     };
 
-    const weekChange = e => {
-        setWeek(e.target.value);
+    const dateChange = e => {
+        setDate(e.target.value);
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-
+        // Returns the newly inputed value to Todo
         props.onSubmit({
-            id: Math.floor(Math.random() * 10000),
-            text: input,
+            taskID: Math.floor(Math.random() * 10000),
+            description: input,
             label: label,
-            week: week
+            date_created: date
         });
 
         setInputs('');
         setLabel('');
-        setWeek('');
+        setDate('');
     };
 
+    // Updates the Label options from the newly created labels
     useEffect(() => {
         setOptions(labelData);
     }, []);
@@ -74,9 +73,9 @@ function TodoForm(props) {
                         <input 
                             type='date'
                             min={minDate}
-                            value={week}
+                            value={date}
                             className='todo_input edit'
-                            onChange={weekChange}
+                            onChange={dateChange}
                         />
                         <button className='todo_button edit'>UPDATE</button>
                     </div>

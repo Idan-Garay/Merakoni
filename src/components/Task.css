@@ -26,6 +26,7 @@
 
 .complete {
     opacity: 0.4;
+    filter: brightness(0.85);    
 }
 .complete .text{
     text-decoration: line-through;

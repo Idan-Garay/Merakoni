@@ -5,30 +5,32 @@ import {AiOutlineCalendar} from 'react-icons/ai';
 
 function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
     const [edit, setEdit] = useState({
-        id: null,
-        value: '',
+        taskID: null,
+        description: '',
         label: '',
-        week: ''
+        date_created: ''
     });
 
+    // Calls updateToDo with the new edited values 
     const submitUpdate = value => {
-        updateToDo(edit.id, value)
+        updateToDo(edit.taskID, value)
         setEdit({
-            id: null,
-            value: '',
+            taskID: null,
+            description: '',
             label: '',
-            week: ''
+            date_created: ''
         });
     };
 
-    if(edit.id){
+    // Calls TodoForm and sends the value of the clicked task
+    if(edit.taskID){
         return <TodoForm edit={edit} onSubmit={submitUpdate}/>
     }
 
     return toDos.map((toDo, index) => (
-        <div className={toDo.isComplete ? 'todo_row complete': 'todo_row'} key={index}>
-            <div className="text" key={toDo.id} onClick={() =>  completeToDo(toDo.id)}>
-                {toDo.text}
+        <div className={toDo.date_accomplished ? 'todo_row complete': 'todo_row'} key={index}>
+            <div className="text" key={toDo.taskID} onClick={() =>  completeToDo(toDo.taskID)}>
+                {toDo.description}
             </div>
             <div className="icons">
                 <div className="task_label">
@@ -38,14 +40,14 @@ function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
                     <AiOutlineCalendar 
                         className='calendar_icon'
                     />
-                    {toDo.date}
+                    {toDo.week}
                 </div>
                 <MdEdit 
-                    onClick={() => setEdit({id: toDo.id, value: toDo.text, label: toDo.label, week: toDo.week})}
+                    onClick={() => setEdit({taskID: toDo.taskID, description: toDo.description, label: toDo.label, date_created: toDo.date_created})}
                     className='edit_icon'
                 />
                 <MdDelete
-                    onClick={() => removeToDo(toDo.id)}
+                    onClick={() => removeToDo(toDo.taskID)}
                     className='delete_icon'
                 />
             </div>
