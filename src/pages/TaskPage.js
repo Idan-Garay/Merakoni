@@ -1,21 +1,24 @@
 import React from "react";
-import TodoList from '../components/TodoList';
+import TaskList from '../components/TaskList';
 import { useParams } from "react-router-dom";
 import { TasksContext } from "../App";
 import '../components/Task.css';
 
+import Labels from '../components/Label';
 
-const Task = () => {
+
+const TaskPage = () => {
   let { id } = useParams();
   const { days } = React.useContext(TasksContext);
 
   return (
     <main>
       <div id="tasks">
-        <TodoList/>
+        <TaskList/>
+        {/* <Labels/> */}
       </div>
     </main>
   );
 };
 
-export default Task;
+export default TaskPage;

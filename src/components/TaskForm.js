@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {labelData} from "./taskdata";
 
 
-function TodoForm(props) {
+function TaskForm(props) {
     const [input, setInputs] = useState(props.edit ? props.edit.description: '');
     const [date, setDate] = useState(props.edit ? props.edit.date_created: '');
     const [label, setLabel] = useState(props.edit ? props.edit.label: '');
@@ -97,4 +97,4 @@ function TodoForm(props) {
     )
 }
 
-export default TodoForm
+export default TaskForm

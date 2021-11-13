@@ -57,14 +57,22 @@
 .label_form_div {
     display: grid;
     align-items: center;
-    margin: 50px auto 0 auto;
-    padding: 50px;
+    margin: 25px auto 25px auto;
+    padding: 20px;
     height: 100%;
-    width: 50%;
+    width: 90%;
     border-radius: 20px;
     border: 2px solid salmon;
     background-color: white;
     gap: 10px;
+}
+.label_form_div .todo_row{
+    background-color: rgb(255, 183, 175);
+}
+.label_form_div span{
+    overflow-wrap: break-word;
+    text-align: justify;
+    font-size: 15px;
 }
 
 .todo_input {
