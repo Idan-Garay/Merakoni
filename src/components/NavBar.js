@@ -20,6 +20,9 @@ const NavBar = () => {
         <Link to="/settings">
           <li>Settings</li>
         </Link>
+        <Link to="/day">
+          <li>Task</li>
+        </Link>
       </ul>
       <div className="profile">profile</div>
     </nav>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./Day.css";
 import { FaEllipsisV } from "react-icons/fa";
 import { Link } from "react-router-dom";
-// import { TasksContext } from "../App";
+import { TasksContext } from "../App";
 
 const Day = ({ dayIdx, day }) => {
   const { dispatch } = useContext(TasksContext);
