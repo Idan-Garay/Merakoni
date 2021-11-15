@@ -1,11 +1,10 @@
 import React from "react";
-import TaskList from '../components/TaskList';
+import TaskList from "../components/TaskList";
 import { useParams } from "react-router-dom";
 import { TasksContext } from "../App";
-import '../components/Task.css';
+import "../components/Task.css";
 
-import Labels from '../components/Label';
-
+import Labels from "../components/Label";
 
 const TaskPage = () => {
   let { id } = useParams();
@@ -14,8 +13,8 @@ const TaskPage = () => {
   return (
     <main>
       <div id="tasks">
-        <TaskList/>
-        {/* <Labels/> */}
+        <TaskList />
+        <Labels />
       </div>
     </main>
   );
