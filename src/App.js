@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
-import TaskPage from "./pages/Task";
+import TaskPage from "./pages/TaskPage";
 import Report from "./pages/Report";
 import { Switch, Route } from "react-router-dom";
 import * as dayjs from "dayjs";
@@ -45,7 +45,7 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
-          <Route path="/day/:id">
+          <Route path="/day">
             <TaskPage />
           </Route>
         </Switch>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./DayForm.css";
 import { FaTimes, FaPlusCircle, FaPlus } from "react-icons/fa";
-import TaskForm from "./TaskForm";
+// import TaskForm from "./TaskForm";
 
 const DayForm = ({ toggleModal }) => {
   const [toggleTaskForm, setToggleTaskForm] = useState(false);
@@ -57,7 +57,7 @@ const DayForm = ({ toggleModal }) => {
             </div>
           </div>
         </form>
-        {toggleTaskForm && <TaskForm closeTaskForm={closeTaskForm} />}
+        {/* {toggleTaskForm && <TaskForm closeTaskForm={closeTaskForm} />} */}
       </div>
     </div>
   );

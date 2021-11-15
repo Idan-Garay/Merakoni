@@ -19,6 +19,9 @@ const NavBar = () => {
         <NavLink to="/settings">
           <li>Settings</li>
         </NavLink>
+        <NavLink to="/day">
+          <li>Task</li>
+        </NavLink>
       </ul>
       <div className="profile">profile</div>
     </nav>
