@@ -6,9 +6,10 @@ const NavBar = () => {
   return (
     <nav className="navBar">
       <h1>Merakoni</h1>
+
       <ul>
         <Link to="/">
-          <li>Home</li>
+          <li>Dashboard</li>
         </Link>
         <Link to="/history">
           <li>History</li>
@@ -18,9 +19,6 @@ const NavBar = () => {
         </Link>
         <Link to="/settings">
           <li>Settings</li>
-        </Link>
-        <Link to="/day">
-          <li>Task</li>
         </Link>
       </ul>
       <div className="profile">profile</div>
