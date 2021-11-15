@@ -9,15 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Idan-Garay/TodoApp.git"
+    "url": "git+https://github.com/Idan-Garay/Merakoni.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Idan-Garay/TodoApp/issues"
-  },
-  "homepage": "https://github.com/Idan-Garay/TodoApp#readme",
   "dependencies": {
     "dayjs": "^1.10.7",
     "history": "^5.0.1",

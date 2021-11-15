@@ -34,6 +34,7 @@ const reducer = (state, action) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, week);
+
   return (
     <div id="app">
       <NavBar />

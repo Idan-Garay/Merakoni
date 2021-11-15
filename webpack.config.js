@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 module.exports = {
   mode: "development",
   entry: path.resolve(__dirname, "./src/index.js"),
-  output: { filename: "bundle.[hash].js" },
+  output: { filename: "bundle.[fullHash].js" },
   devtool: "inline-source-map",
   module: {
     rules: [
