@@ -249,4 +249,18 @@ const week = [
   },
 ];
 
-export default week;
+export default week.map((day) => {
+  day.dayId = dayjs().day(day.dayId.day());
+  day.tasks.map((task) => {
+    const { date_created, date_accomplished } = task;
+    task.date_created = dayjs().day(dayjs(date_created).day());
+    task.date_accomplished = dayjs().day(dayjs(date_accomplished).day());
+    return task;
+  });
+  return day;
+});
+
+// 1. Traverse days
+// 2. update day
+// 3. traverse tasks
+// 4. update task dates (date -> dayjs -> date)

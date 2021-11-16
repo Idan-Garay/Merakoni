@@ -27,6 +27,9 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
+          <Route path="/day/:id">
+            <TaskPage />
+          </Route>
           <Route path="/tasks">
             <TaskPage />
           </Route>
