@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
-import { taskData } from "./taskdata";
+// import { taskData } from "./taskdata";
 // import week from "../data";
 
-function TaskList() {
+function TaskList({ taskData }) {
   const [toDos, setToDos] = useState(taskData);
   // const [toDos, setToDos] = useState(week[1].tasks);
 

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./Main.css";
 import Utilities from "./Utilities";
-import Day from "./Day";
-import DayForm from "./DayForm";
+import Day from "./Day/Day";
+import DayForm from "./Day/DayForm";
 import { useParams, Route } from "react-router-dom";
 import { TasksContext } from "../App";
 

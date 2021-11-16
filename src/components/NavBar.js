@@ -20,7 +20,7 @@ const NavBar = () => {
         <Link to="/settings">
           <li>Settings</li>
         </Link>
-        <Link to="/day">
+        <Link to="/tasks">
           <li>Task</li>
         </Link>
       </ul>

@@ -34,6 +34,7 @@ const reducer = (state, action) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, week);
+
   return (
     <div id="app">
       <NavBar />
@@ -45,7 +46,7 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
-          <Route path="/day">
+          <Route path="/tasks">
             <TaskPage />
           </Route>
         </Switch>
