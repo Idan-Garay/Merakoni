@@ -4,19 +4,15 @@ import TaskList from "../components/TaskList";
 import { TasksContext } from "../App";
 import "../components/Task.css";
 
-import Labels from "../components/Label";
-
 const TaskPage = () => {
   // let { id } = useParams();
   const { days } = React.useContext(TasksContext);
   const tasks = days.flatMap((day) => day.tasks);
 
-  console.log("ey", tasks);
   return (
     <main>
       <div id="tasks">
         <TaskList taskData={tasks} />
-        {/* <Labels /> */}
       </div>
     </main>
   );

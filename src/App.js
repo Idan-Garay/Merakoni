@@ -12,26 +12,6 @@ import week from "./data.js";
 
 export const TasksContext = React.createContext();
 
-const reducer = (state, action) => {
-  const { value } = action;
-
-  switch (action.type) {
-    case "ADD TASK":
-      state[value.dayId.get("day")] = value;
-      return { ...state };
-    case "DELETE TASK":
-      console.log("deleteTask");
-    case "EDIT TASK":
-      console.log("editTask");
-    case "DELETE DAY":
-      const { dayId } = state[value];
-      state.splice(value, 1, { dayId: dayId, tasks: [] });
-      return [...state];
-    default:
-      return state;
-  }
-};
-
 const App = () => {
   const [state, dispatch] = useReducer(reducer, week);
 
