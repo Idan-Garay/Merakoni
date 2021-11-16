@@ -21,7 +21,7 @@ const Day = ({ dayIdx, day }) => {
         <Link
           to={{ pathname: `/day/${day.dayId.get("day")}`, state: { ...day } }}
         >
-          <h2>[Highlight]</h2>
+          <h2>{day.dayId.format("dddd")}</h2>
         </Link>
         <ul className="dropdown-menu">
           <FaEllipsisV onClick={toggle} className="point" />

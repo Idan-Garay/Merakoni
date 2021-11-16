@@ -1,6 +1,6 @@
 import { addTask, deleteDay } from "./actions";
 
-export const reducer = (state, action) => {
+const reducer = (state, action) => {
   const { value } = action;
 
   switch (action.type) {
@@ -17,3 +17,5 @@ export const reducer = (state, action) => {
       return state;
   }
 };
+
+export default reducer;

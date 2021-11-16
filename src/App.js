@@ -8,9 +8,10 @@ import { Switch, Route } from "react-router-dom";
 import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
-import week from "./data.js";
+import week from "./context/TasksContext";
+import reducer from "./store/task/reducer";
 
-export const TasksContext = React.createContext();
+export const TasksContext = React.createContext(week);
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, week);
