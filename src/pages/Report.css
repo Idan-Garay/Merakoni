@@ -1,0 +1,25 @@
+.report-page {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.report-page > div {
+  border: 1px solid salmon;
+  padding: 5px;
+}
+
+.calendar {
+  height: 35%;
+  width: 100%;
+}
+
+.yearly-status {
+  height: 30%;
+  width: 100%;
+}
+
+.records {
+  height: 35%;
+}

@@ -1,5 +1,11 @@
 import React from "react";
 import Accomplished from "../components/Report/Accomplished";
+import "./Report.css";
+// import { Calendar } from "react-multi-date-picker";
+// import "react-multi-date-picker/styles/colors/red.css";
+import { CalendarHeatmap, BarChart } from "reaviz";
+import "react-calendar-heatmap/dist/styles.css";
+import hmData from "./heatMap";
 
 const Report = () => {
   const tasks = [
@@ -93,10 +99,39 @@ const Report = () => {
       date_accomplished: "10/30/2021",
     },
   ];
+
   return (
-    <div>
-      Report page
-      <Accomplished tasks={tasks} />
+    <div className="report-page">
+      <div className="calendar">
+        Calendar
+        {/* <Calendar
+          multiple
+          // value={values}
+          // onChange={setValues}
+          className="red"
+        /> */}
+      </div>
+      <div className="yearly-status">
+        Yearly Status
+        {/* <CalendarHeatmap height={100} width={715} data={hmData} view="year" /> */}
+      </div>
+
+      <div className="records">
+        Records
+        <BarChart
+          width={700}
+          height={200}
+          data={[
+            { key: "Sunday", data: 13 },
+            { key: "Monday", data: 0 },
+            { key: "Tuesday", data: 3 },
+            { key: "Wednesday", data: 1 },
+            { key: "Thursday", data: 5 },
+            { key: "Friday", data: 8 },
+            { key: "Saturday", data: 13 },
+          ]}
+        />
+      </div>
     </div>
   );
 };
