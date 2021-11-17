@@ -9,6 +9,7 @@ import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 import week from "./data.js";
+import Badge from "./pages/Badge";
 
 export const TasksContext = React.createContext();
 
@@ -48,6 +49,9 @@ const App = () => {
           </Route>
           <Route path="/tasks">
             <TaskPage />
+          </Route>]
+          <Route path="/badges">
+            <Badge />
           </Route>
         </Switch>
       </TasksContext.Provider>

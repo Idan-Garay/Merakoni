@@ -1,0 +1,20 @@
+.badgePage {
+    margin: 2rem;
+    text-align: center;
+}
+h1{
+    margin-bottom: 2rem;
+}
+.badgeList{
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.badges{
+    padding: 20px;
+}
+img{
+    height: 100px;
+    width: 100px;
+    margin-bottom: 10px;
+}
