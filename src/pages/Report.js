@@ -3,9 +3,11 @@ import Accomplished from "../components/Report/Accomplished";
 import "./Report.css";
 // import { Calendar } from "react-multi-date-picker";
 // import "react-multi-date-picker/styles/colors/red.css";
-import { CalendarHeatmap, BarChart } from "reaviz";
-import "react-calendar-heatmap/dist/styles.css";
-import hmData from "./heatMap";
+import { BarChart } from "reaviz";
+import HeatMap from "@uiw/react-heat-map";
+import Tooltip from "@uiw/react-tooltip";
+// import hmData from "./heatMap";
+import Timer from "../components/Report/Timer/index";
 
 const Report = () => {
   const tasks = [
@@ -104,20 +106,49 @@ const Report = () => {
     <div className="report-page">
       <div className="calendar">
         Calendar
-        {/* <Calendar
-          multiple
-          // value={values}
-          // onChange={setValues}
-          className="red"
-        /> */}
+        <HeatMap
+          value={[
+            { date: "2021/01/11", count: 2 },
+            { date: "2021/01/12", count: 20 },
+            { date: "2021/01/13", count: 10 },
+            ...[...Array(17)].map((_, idx) => ({
+              date: `2021/02/${idx + 10}`,
+              count: idx,
+              content: "",
+            })),
+            { date: "2021/04/11", count: 2 },
+            { date: "2021/05/01", count: 5 },
+            { date: "2021/05/02", count: 5 },
+            { date: "2021/05/04", count: 11 },
+          ]}
+          startDate={new Date("2021/01/01")}
+          rectSize={16}
+          width={990}
+          style={{ color: "#ad001d" }}
+          panelColors={{
+            0: "#f4decd",
+            2: "#e4b293",
+            4: "#d48462",
+            10: "#c2533a",
+            20: "#ad001d",
+            30: "#000",
+          }}
+          rectRender={(props, data) => {
+            // if (!data.count) return <rect {...props} />;
+            return (
+              <Tooltip
+                key={props.key}
+                placement="top"
+                content={`Completed Tasks: ${data.count || 0}`}
+              >
+                <rect {...props} />
+              </Tooltip>
+            );
+          }}
+        />
       </div>
       <div className="yearly-status">
-        Yearly Status
-        {/* <CalendarHeatmap height={100} width={715} data={hmData} view="year" /> */}
-      </div>
-
-      <div className="records">
-        Records
+        Weakly Status
         <BarChart
           width={700}
           height={200}
@@ -131,6 +162,13 @@ const Report = () => {
             { key: "Saturday", data: 13 },
           ]}
         />
+      </div>
+
+      <div className="records">
+        Records
+        <div>
+          Timer <Timer />
+        </div>
       </div>
     </div>
   );
