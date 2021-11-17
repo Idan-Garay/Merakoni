@@ -9,9 +9,9 @@ export const deleteDay = (state, value) => {
   return [...state];
 };
 
-export const addTodo = (toDo) => {
+export const addTodo = (state, value) => {
   if (!toDo.description || /^\s*$/.test(toDo.description)) {
-    return;
+    return state;
   }
 
   // If task is created the date_created and week is set to the current date.
@@ -22,8 +22,10 @@ export const addTodo = (toDo) => {
   }
 
   // Adds the inputed task at the end of the array
-  const newToDos = [...toDos, toDo];
-  setToDos(newToDos);
+  // const newToDos = [...toDos, toDo];
+  // setToDos(newToDos);
+  state[value.dayId.get("day")] = value;
+  return { ...state };
 
   // Insert the newly added task in the Database
 };

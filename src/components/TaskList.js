@@ -3,11 +3,12 @@ import TaskForm from "./TaskForm";
 import Task from "./Task";
 // import { taskData } from "./taskdata";
 // import week from "../data";
+// import { TasksContext } from "../App";
 
 function TaskList({ taskData }) {
   const [toDos, setToDos] = useState(taskData);
   // const [toDos, setToDos] = useState(week[1].tasks);
-
+  // const { dispatch } = useContext(TasksContext);
   const weekday = [
     "Sunday",
     "Monday",
@@ -31,6 +32,9 @@ function TaskList({ taskData }) {
     // Adds the inputed task at the end of the array
     const newToDos = [...toDos, toDo];
     setToDos(newToDos);
+
+    // using reducer
+    // dispatch({ type: "ADD TASK", value: toDo });
 
     // Insert the newly added task in the Database
   };

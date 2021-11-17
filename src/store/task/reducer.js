@@ -1,12 +1,13 @@
-import { addTask, deleteDay } from "./actions";
+import { addTodo, deleteDay } from "./actions";
 
 const reducer = (state, action) => {
   const { value } = action;
 
   switch (action.type) {
     case "ADD TASK":
-      state[value.dayId.get("day")] = value;
-      return addTask(state, value);
+      // should get the value which is a (ours)day object
+
+      return addTodo(state, value);
     case "DELETE TASK":
       console.log("deleteTask");
     case "EDIT TASK":

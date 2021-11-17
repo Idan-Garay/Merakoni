@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import TaskList from "../components/TaskList";
 import { useParams } from "react-router-dom";
 import { TasksContext } from "../App";
@@ -8,15 +8,18 @@ import * as dayjs from "dayjs";
 const TaskPage = () => {
   let { id } = useParams();
   const { days } = React.useContext(TasksContext);
-  const tasks = id
-    ? days
-        .filter((day, index) => {
-          return day.dayId.isSame(dayjs().day(id), "day");
-        })
-        .flatMap((day) => day.tasks)
-    : days.flatMap((day) => day.tasks);
+  // const [tasks, setTasks] = useState([]);
+  const tasks = useMemo(() => {
+    return id
+      ? days
+          .filter((day) => {
+            return day.dayId.isSame(dayjs().day(id), "day");
+          })
+          .flatMap((day) => day.tasks)
+      : days.flatMap((day) => day.tasks);
+  }, [id]);
 
-  console.log(tasks.length);
+  // useEffect(() => {}, [tasks]);
 
   return (
     <main>

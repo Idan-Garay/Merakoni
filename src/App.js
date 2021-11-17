@@ -27,10 +27,10 @@ const App = () => {
           <Route exact path="/report">
             <Report />
           </Route>
-          <Route path="/day/:id">
+          <Route key="day-tasks" path="/day/:id">
             <TaskPage />
           </Route>
-          <Route path="/tasks">
+          <Route key="all-tasks" path="/tasks">
             <TaskPage />
           </Route>
         </Switch>
