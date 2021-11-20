@@ -1,19 +1,19 @@
-import { addTodo, deleteDay } from "./actions";
-
 const reducer = (state, action) => {
-  const { value } = action;
-
   switch (action.type) {
-    case "ADD TASK":
-      // should get the value which is a (ours)day object
-
-      return addTodo(state, value);
+    case "ADD TASK": {
+      const { payload } = action;
+      state.push({ taskId: state.length + 1, ...payload });
+      console.log(state);
+      return [...state];
+    }
     case "DELETE TASK":
-      console.log("deleteTask");
-    case "EDIT TASK":
-      console.log("editTask");
-    case "DELETE DAY":
-      return deleteDay(state, value);
+      return [state.filter((task) => task.taskId !== taskId)];
+    case "EDIT TASK": {
+      const { payload } = action;
+      const idx = state.findIndex((task) => task.taskId === payload.taskId);
+      state[idx] = payload;
+      return [...state];
+    }
     default:
       return state;
   }

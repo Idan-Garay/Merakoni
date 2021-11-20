@@ -8,21 +8,23 @@ import { Switch, Route } from "react-router-dom";
 import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
-import week from "./context/TasksContext";
-import reducer from "./store/task/reducer";
+import { tasks } from "./context/TasksContext";
+import taskReducer from "./store/task/reducer";
 
-export const TasksContext = React.createContext(week);
+export const TasksContext = React.createContext(tasks);
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, week);
+  const [tasksState, dispatch] = useReducer(taskReducer, tasks);
 
   return (
     <div id="app">
       <NavBar />
-      <TasksContext.Provider value={{ days: state, dispatch }}>
-        <Switch>
+      <Switch>
+        <TasksContext.Provider value={{ tasks: tasksState, dispatch }}>
           <Route exact path="/">
-            <Home />
+            {/* <Home /> */}
+
+            <TaskPage />
           </Route>
           <Route exact path="/report">
             <Report />
@@ -33,8 +35,8 @@ const App = () => {
           <Route key="all-tasks" path="/tasks">
             <TaskPage />
           </Route>
-        </Switch>
-      </TasksContext.Provider>
+        </TasksContext.Provider>
+      </Switch>
     </div>
   );
 };

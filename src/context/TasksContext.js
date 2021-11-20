@@ -264,3 +264,30 @@ export default week.map((day) => {
 // 2. update day
 // 3. traverse tasks
 // 4. update task dates (date -> dayjs -> date)
+
+export const tasks = [
+  {
+    taskID: 1,
+    description:
+      "Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.",
+    label: "Aquamarine",
+    date_created: "10/30/2021",
+    date_accomplished: "11/1/2021",
+  },
+  {
+    taskID: 2,
+    description:
+      "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+    label: "Fuscia",
+    date_created: "10/30/2021",
+    date_accomplished: "",
+  },
+  {
+    taskID: 3,
+    description:
+      "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.",
+    label: "Pink",
+    date_created: "10/30/2021",
+    date_accomplished: "10/31/2021",
+  },
+];

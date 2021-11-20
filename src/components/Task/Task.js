@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { addTask } from "../../store/task/actions";
 
-function Task({ toDos, completeToDo, removeToDo, updateToDo }) {
+function Task({ info, completeToDo, removeToDo, updateToDo }) {
   const [edit, setEdit] = useState({
     taskID: null,
     description: "",
@@ -27,45 +28,41 @@ function Task({ toDos, completeToDo, removeToDo, updateToDo }) {
     return <TaskForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  return toDos.map((toDo, index) => (
-    <div
-      className={toDo.date_accomplished ? "todo_row complete" : "todo_row"}
-      key={index}
-    >
-      {/* <div className={toDo.done ? "todo_row complete" : "todo_row"} key={index}> */}
+  return (
+    <div className={info.date_accomplished ? "todo_row complete" : "todo_row"}>
       <div
         className="text"
-        key={toDo.taskID}
-        onClick={() => completeToDo(toDo.taskID)}
+        key={info.taskID}
+        onClick={() => completeToDo(info.taskID)}
       >
-        {toDo.description}
+        {info.description}
       </div>
       <div className="icons">
         <div className="task_label">
-          <span>{toDo.label}</span>
+          <span>{info.label}</span>
         </div>
         <div className="week_day">
           <AiOutlineCalendar className="calendar_icon" />
-          {toDo.week}
+          {info.week}
         </div>
         <MdEdit
           onClick={() =>
             setEdit({
-              taskID: toDo.taskID,
-              description: toDo.description,
-              label: toDo.label,
-              date_created: toDo.date_created,
+              taskID: info.taskID,
+              description: info.description,
+              label: info.label,
+              date_created: info.date_created,
             })
           }
           className="edit_icon"
         />
         <MdDelete
-          onClick={() => removeToDo(toDo.taskID)}
+          onClick={() => removeToDo(info.taskID)}
           className="delete_icon"
         />
       </div>
     </div>
-  ));
+  );
 }
 
 export default Task;
