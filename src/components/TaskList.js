@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TaskForm from "./Task/TaskForm";
 import Task from "./Task/Task";
 import { addTask, deleteTask, editTask } from "../store/task/actions";
+// import Button from "react-bootstrap/Button";
+import EditForm from "./Task/EditForm";
 
 function TaskList({ taskData, dispatch }) {
   // const [toDos, setToDos] = useState(taskData);
@@ -15,6 +17,20 @@ function TaskList({ taskData, dispatch }) {
     "Saturday",
   ];
 
+  const handleDelete = (taskId) => {
+    deleteTask(taskId, dispatch);
+  };
+
+  const handleEdit = (task) => {
+    editTask(task, dispatch);
+  };
+
+  // const handleModal = () => (
+  //   <Button variant="primary" onClick={handleShow}>
+  //     Launch static backdrop modal
+  //   </Button>
+  // );
+
   return (
     <>
       <div>
@@ -25,8 +41,9 @@ function TaskList({ taskData, dispatch }) {
             key={index}
             info={task}
             // completeToDo={completeToDo}
-            // removeToDo={removeToDo}
-            // updateToDo={updateToDo}
+            removeToDo={handleDelete}
+            updateToDo={handleEdit}
+            // handleShow={handleShow}
           />
         ))}
       </div>

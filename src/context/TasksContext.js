@@ -6,7 +6,7 @@ const week = [
     dayId: dayjs("31/10/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 1,
+        taskId: 1,
         description:
           "Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.",
         label: "Aquamarine",
@@ -14,7 +14,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 2,
+        taskId: 2,
         description:
           "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
         label: "Fuscia",
@@ -22,7 +22,7 @@ const week = [
         date_accomplished: "",
       },
       {
-        taskID: 3,
+        taskId: 3,
         description:
           "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.",
         label: "Pink",
@@ -30,7 +30,7 @@ const week = [
         date_accomplished: "10/31/2021",
       },
       {
-        taskID: 4,
+        taskId: 4,
         description: "Quisque ut erat.",
         label: "Goldenrod",
 
@@ -43,7 +43,7 @@ const week = [
     dayId: dayjs("01/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 5,
+        taskId: 5,
         description:
           "Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit.",
         label: "Pink",
@@ -52,7 +52,7 @@ const week = [
         date_accomplished: "10/30/2021",
       },
       {
-        taskID: 6,
+        taskId: 6,
         description:
           "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.",
         label: "Yellow",
@@ -61,7 +61,7 @@ const week = [
         date_accomplished: "10/30/2021",
       },
       {
-        taskID: 7,
+        taskId: 7,
         description:
           "Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue.",
         label: "Goldenrod",
@@ -69,7 +69,7 @@ const week = [
         date_accomplished: "",
       },
       {
-        taskID: 8,
+        taskId: 8,
         description:
           "Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi. Nulla ac enim.",
         label: "Indigo",
@@ -82,7 +82,7 @@ const week = [
     dayId: dayjs("02/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 9,
+        taskId: 9,
         description:
           "Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",
         label: "Orange",
@@ -91,7 +91,7 @@ const week = [
         date_accomplished: "",
       },
       {
-        taskID: 10,
+        taskId: 10,
         description:
           "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.",
         label: "Red",
@@ -100,7 +100,7 @@ const week = [
         date_accomplished: "10/30/2021",
       },
       {
-        taskID: 11,
+        taskId: 11,
         description:
           "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla.",
         label: "Fuscia",
@@ -109,7 +109,7 @@ const week = [
         date_accomplished: "",
       },
       {
-        taskID: 12,
+        taskId: 12,
         description:
           "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo.",
         label: "Indigo",
@@ -118,7 +118,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 13,
+        taskId: 13,
         description:
           "Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.",
         label: "Turquoise",
@@ -127,7 +127,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 14,
+        taskId: 14,
         description:
           "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam. Nam tristique tortor eu pede.",
         label: "Blue",
@@ -136,7 +136,7 @@ const week = [
         date_accomplished: "10/31/2021",
       },
       {
-        taskID: 15,
+        taskId: 15,
         description:
           "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat.",
         label: "Maroon",
@@ -145,7 +145,7 @@ const week = [
         date_accomplished: "10/30/2021",
       },
       {
-        taskID: 16,
+        taskId: 16,
         description:
           "Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.",
         label: "Purple",
@@ -159,7 +159,7 @@ const week = [
     dayId: dayjs("03/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 17,
+        taskId: 17,
         description:
           "Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
         label: "Aquamarine",
@@ -168,7 +168,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 18,
+        taskId: 18,
         description:
           "Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
         label: "Blue",
@@ -182,7 +182,7 @@ const week = [
     dayId: dayjs("04/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 17,
+        taskId: 17,
         description:
           "Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
         label: "Aquamarine",
@@ -191,7 +191,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 18,
+        taskId: 18,
         description:
           "Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
         label: "Blue",
@@ -205,7 +205,7 @@ const week = [
     dayId: dayjs("05/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 17,
+        taskId: 17,
         description:
           "Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
         label: "Aquamarine",
@@ -214,7 +214,7 @@ const week = [
         date_accomplished: "",
       },
       {
-        taskID: 18,
+        taskId: 18,
         description:
           "Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
         label: "Blue",
@@ -228,7 +228,7 @@ const week = [
     dayId: dayjs("06/11/2021", "DD/MM/YYYY"),
     tasks: [
       {
-        taskID: 17,
+        taskId: 17,
         description:
           "Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
         label: "Aquamarine",
@@ -237,7 +237,7 @@ const week = [
         date_accomplished: "11/1/2021",
       },
       {
-        taskID: 18,
+        taskId: 18,
         description:
           "Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
         label: "Blue",
@@ -267,27 +267,30 @@ export default week.map((day) => {
 
 export const tasks = [
   {
-    taskID: 1,
+    taskId: 1,
     description:
       "Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.",
     label: "Aquamarine",
     date_created: "10/30/2021",
+    todo_date: "10/31/2021",
     date_accomplished: "11/1/2021",
   },
   {
-    taskID: 2,
+    taskId: 2,
     description:
       "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
     label: "Fuscia",
     date_created: "10/30/2021",
+    todo_date: "10/31/2021",
     date_accomplished: "",
   },
   {
-    taskID: 3,
+    taskId: 3,
     description:
       "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.",
     label: "Pink",
     date_created: "10/30/2021",
+    todo_date: "10/30/2021",
     date_accomplished: "10/31/2021",
   },
 ];

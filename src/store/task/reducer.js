@@ -6,8 +6,10 @@ const reducer = (state, action) => {
       console.log(state);
       return [...state];
     }
-    case "DELETE TASK":
-      return [state.filter((task) => task.taskId !== taskId)];
+    case "DELETE TASK": {
+      const { taskId } = action;
+      return [...state.filter((task) => task.taskId !== taskId)];
+    }
     case "EDIT TASK": {
       const { payload } = action;
       const idx = state.findIndex((task) => task.taskId === payload.taskId);
