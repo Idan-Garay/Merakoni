@@ -1,29 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Main.css";
 import Utilities from "./Utilities";
 import Day from "./Day/Day";
 import DayForm from "./Day/DayForm";
 import { useParams, Route } from "react-router-dom";
 import { TasksContext } from "../App";
+import { getTasksWithinCurrentWeek } from "../api/days";
 
 const Main = () => {
-  const { days } = useContext(TasksContext);
+  const { tasks } = useContext(TasksContext);
 
-  const [showModal, setShowModal] = useState(false);
-  // 0 - 6 from sunday(0) to saturday(6)
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
+  const [days, setDays] = useState({});
+
+  useEffect(() => {
+    setDays(getTasksWithinCurrentWeek(tasks));
+  }, []);
 
   return (
     <>
       <main className="main-section">
         <div className="left-content">
-          <Utilities toggleModal={toggleModal} />
+          <Utilities />
           <div className="days-section">
-            {days.map((day, index) => (
-              <Day dayIdx={index} day={day} key={index} />
-            ))}
+            {Object.entries(days).map(([keyName, value], index) => {
+              return <Day day={keyName} tasks={value} key={index} />;
+            })}
           </div>
         </div>
         <div className="right-content">calendar</div>

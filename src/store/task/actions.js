@@ -1,3 +1,7 @@
+import * as dayjs from "dayjs";
+dayjs.extend(require("dayjs/plugin/customParseFormat"));
+dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
+
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
 const EDIT_TASK = "EDIT TASK";

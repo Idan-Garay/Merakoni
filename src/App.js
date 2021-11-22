@@ -22,9 +22,7 @@ const App = () => {
       <Switch>
         <TasksContext.Provider value={{ tasks: tasksState, dispatch }}>
           <Route exact path="/">
-            {/* <Home /> */}
-
-            <TaskPage />
+            <Home />
           </Route>
           <Route exact path="/report">
             <Report />
