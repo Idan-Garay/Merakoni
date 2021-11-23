@@ -36,7 +36,7 @@ function TaskList({ taskData, dispatch, dayName }) {
     <>
       <div>
         <h1 className="title">What are your Plans for the Week?</h1>
-        <TaskForm onSubmit={addTask} dispatch={dispatch} />
+        <TaskForm onSubmit={addTask} dispatch={dispatch} dayName={dayName} />
         {dayName === undefined
           ? taskData.map((task, index) => (
               <Task

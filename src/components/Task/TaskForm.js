@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getDayFromDayName } from "../../api/days";
 import EditForm from "./EditForm";
 // import { labelData } from "./taskdata";
 
@@ -24,11 +25,13 @@ function TaskForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Returns the newly inputed value to Todo
+    const { dayName } = props;
     props.onSubmit(
       {
         description: input,
         label: label,
         date_created: date,
+        todo_date: dayName !== undefined ? getDayFromDayName(dayName) : date,
       },
       props.dispatch
     );

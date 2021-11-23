@@ -3,7 +3,7 @@ const reducer = (state, action) => {
     case "ADD TASK": {
       const { payload } = action;
       state.push({ taskId: state.length + 1, ...payload });
-      console.log(state);
+
       return [...state];
     }
     case "DELETE TASK": {

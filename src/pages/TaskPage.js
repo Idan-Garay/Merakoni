@@ -9,8 +9,6 @@ const TaskPage = (props) => {
   let { day } = useParams();
   let { tasks, dispatch } = React.useContext(TasksContext);
 
-  // merge
-
   return (
     <main>
       <div id="tasks">

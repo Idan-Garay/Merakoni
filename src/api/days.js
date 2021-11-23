@@ -18,16 +18,29 @@ export const getTasksWithinCurrentWeek = (tasks) => {
   };
 
   tasks.forEach((task) => {
-    const taskDay = dayjs(task.todo_date);
-    if (taskDay.isBetween(startOfWeek, endOfWeek, null, "[]")) {
-      const dayName = taskDay.format("dddd");
-      days[dayName].push(task);
+    if (task.todo_date.length !== 0) {
+      const taskDay = dayjs(task.todo_date);
+      if (taskDay.isBetween(startOfWeek, endOfWeek, null, "[]")) {
+        const dayName = taskDay.format("dddd");
+        days[dayName].push(task);
+      }
     }
   });
   return days;
 };
 
 export const getTasksWithinDay = (tasks, dayName) => {
+  let dayTasks = [];
+
+  const taskDay = getDayFromDayName(dayName);
+
+  dayTasks = tasks.filter((task) =>
+    dayjs(task.todo_date).isSame(taskDay, "day")
+  );
+  return dayTasks;
+};
+
+export const getDayFromDayName = (dayName) => {
   const days = [
     "Sunday",
     "Monday",
@@ -37,19 +50,14 @@ export const getTasksWithinDay = (tasks, dayName) => {
     "Friday",
     "Saturday",
   ];
-  let dayTasks = [];
 
-  const dayN = days.findIndex((day) => day === dayName);
+  let dayN = days.findIndex((day) => day === dayName);
   if (dayN !== -1) {
-    const taskDay = dayjs().day(dayN);
-    dayTasks = tasks.filter((task) =>
-      dayjs(task.todo_date).isSame(taskDay, "day")
-    );
+    dayN = dayjs().day(dayN);
   } else {
     console.log("error dayN is -1");
   }
-  console.log(dayTasks, dayN);
-  return dayTasks;
+  return dayN;
 };
 
 export const getDayName = (date) => {
