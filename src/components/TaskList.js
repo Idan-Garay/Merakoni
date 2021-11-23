@@ -4,8 +4,9 @@ import Task from "./Task/Task";
 import { addTask, deleteTask, editTask } from "../store/task/actions";
 // import Button from "react-bootstrap/Button";
 import EditForm from "./Task/EditForm";
+import { getTasksWithinDay } from "../api/days";
 
-function TaskList({ taskData, dispatch }) {
+function TaskList({ taskData, dispatch, dayName }) {
   // const [toDos, setToDos] = useState(taskData);
   const weekday = [
     "Sunday",
@@ -36,16 +37,27 @@ function TaskList({ taskData, dispatch }) {
       <div>
         <h1 className="title">What are your Plans for the Week?</h1>
         <TaskForm onSubmit={addTask} dispatch={dispatch} />
-        {taskData.map((task, index) => (
-          <Task
-            key={index}
-            info={task}
-            // completeToDo={completeToDo}
-            removeToDo={handleDelete}
-            updateToDo={handleEdit}
-            // handleShow={handleShow}
-          />
-        ))}
+        {dayName === undefined
+          ? taskData.map((task, index) => (
+              <Task
+                key={index}
+                info={task}
+                // completeToDo={completeToDo}
+                removeToDo={handleDelete}
+                updateToDo={handleEdit}
+                // handleShow={handleShow}
+              />
+            ))
+          : getTasksWithinDay(taskData, dayName).map((task, index) => (
+              <Task
+                key={index}
+                info={task}
+                // completeToDo={completeToDo}
+                removeToDo={handleDelete}
+                updateToDo={handleEdit}
+                // handleShow={handleShow}
+              />
+            ))}
       </div>
     </>
   );

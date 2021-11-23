@@ -27,6 +27,31 @@ export const getTasksWithinCurrentWeek = (tasks) => {
   return days;
 };
 
+export const getTasksWithinDay = (tasks, dayName) => {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let dayTasks = [];
+
+  const dayN = days.findIndex((day) => day === dayName);
+  if (dayN !== -1) {
+    const taskDay = dayjs().day(dayN);
+    dayTasks = tasks.filter((task) =>
+      dayjs(task.todo_date).isSame(taskDay, "day")
+    );
+  } else {
+    console.log("error dayN is -1");
+  }
+  console.log(dayTasks, dayN);
+  return dayTasks;
+};
+
 export const getDayName = (date) => {
   return dayjs(date).format("dddd");
 };

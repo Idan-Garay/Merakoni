@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { TasksContext } from "../../App";
 import { getDayName } from "../../api/days";
 
-const Day = ({ day, tasks }) => {
+const Day = (props) => {
   const { dispatch } = useContext(TasksContext);
-
+  const { day, tasks } = props;
   // const handleDelete = () => {
   //   dispatch({ type: "DELETE DAY", value: dayIdx });
   // };
