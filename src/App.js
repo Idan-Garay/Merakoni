@@ -8,12 +8,9 @@ import { Switch, Route } from "react-router-dom";
 import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
-import { tasks } from "./context/TasksContext";
-import { timer } from "./context/TimerContext";
-import taskReducer from "./store/task/reducer";
+import Badge from "./pages/Badge";
 
 export const TasksContext = React.createContext(tasks);
-export const TimerContext = React.createContext(timer);
 
 const App = () => {
   const [tasksState, dispatch] = useReducer(taskReducer, tasks);
@@ -34,6 +31,10 @@ const App = () => {
           </Route>
           <Route key="all-tasks" path="/tasks">
             <TaskPage />
+          </Route>
+          ]
+          <Route path="/badges">
+            <Badge />
           </Route>
         </TasksContext.Provider>
       </Switch>

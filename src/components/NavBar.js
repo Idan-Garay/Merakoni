@@ -23,6 +23,9 @@ const NavBar = () => {
         <Link to="/tasks">
           <li>Task</li>
         </Link>
+        <Link to="/badges">
+          <li>Badges</li>
+        </Link>
       </ul>
       <div className="profile">profile</div>
     </nav>
