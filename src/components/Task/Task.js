@@ -4,29 +4,12 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { AiOutlineCalendar } from "react-icons/ai";
 
 function Task({ info, completeToDo, removeToDo, handleEditForm, handleShow }) {
-  // Calls updateToDo with the new edited values
-  // const submitUpdate = (value) => {
-  //   updateToDo(edit.taskId, value);
-  //   setEdit({
-  //     taskId: null,
-  //     description: "",
-  //     label: "",
-  //     date_created: "",
-  //   });
-  // };
-
-  // Calls TaskForm and sends the value of the clicked task
-  // if (edit.taskId) {
-  //   return <TaskForm edit={edit} onSubmit={submitUpdate} />;
-  // }
-
+  const handleComplete = () => {
+    completeToDo(info);
+  };
   return (
     <div className={info.date_accomplished ? "todo_row complete" : "todo_row"}>
-      <div
-        className="text"
-        key={info.taskID}
-        onClick={() => completeToDo(info.taskId)}
-      >
+      <div className="text" onClick={handleComplete}>
         {info.description}
       </div>
       <div className="icons">

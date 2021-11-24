@@ -5,6 +5,7 @@ dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
 const EDIT_TASK = "EDIT TASK";
+const COMPLETE_TASK = "COMPLETE TASK";
 
 export const addTask = (task, dispatch) => {
   dispatch({
@@ -25,6 +26,11 @@ export const editTask = (task, dispatch) => {
     type: DELETE_TASK,
     payload: task,
   });
+};
+
+export const completeTask = (task, dispatch) => {
+  task.date_accomplished = dayjs().format("MM/DD/YYYY");
+  dispatch({ type: COMPLETE_TASK, payload: task });
 };
 
 // export const addTodo = (state, value) => {

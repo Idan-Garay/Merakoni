@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import TaskForm from "./Task/TaskForm";
 import Task from "./Task/Task";
-import { addTask, deleteTask, editTask } from "../store/task/actions";
+import {
+  addTask,
+  completeTask,
+  deleteTask,
+  editTask,
+} from "../store/task/actions";
 // import Button from "react-bootstrap/Button";
 import EditForm from "./Task/EditForm";
 import { getTasksWithinDay } from "../api/days";
@@ -26,6 +31,10 @@ function TaskList({ taskData, dispatch, dayName }) {
     editTask(task, dispatch);
   };
 
+  const handleComplete = (task) => {
+    completeTask(task, dispatch);
+  };
+
   // const handleModal = () => (
   //   <Button variant="primary" onClick={handleShow}>
   //     Launch static backdrop modal
@@ -42,7 +51,7 @@ function TaskList({ taskData, dispatch, dayName }) {
               <Task
                 key={index}
                 info={task}
-                // completeToDo={completeToDo}
+                completeToDo={handleComplete}
                 removeToDo={handleDelete}
                 updateToDo={handleEdit}
                 // handleShow={handleShow}
@@ -52,7 +61,7 @@ function TaskList({ taskData, dispatch, dayName }) {
               <Task
                 key={index}
                 info={task}
-                // completeToDo={completeToDo}
+                completeToDo={handleComplete}
                 removeToDo={handleDelete}
                 updateToDo={handleEdit}
                 // handleShow={handleShow}

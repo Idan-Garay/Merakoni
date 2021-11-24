@@ -3,6 +3,10 @@ dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 
+export const getToday = () => {
+  return dayjs().format("MM/DD/YYYY");
+};
+
 export const getTasksWithinCurrentWeek = (tasks) => {
   const startOfWeek = dayjs().startOf("week");
   const endOfWeek = dayjs().endOf("week");
