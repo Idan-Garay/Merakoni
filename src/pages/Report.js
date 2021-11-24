@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Accomplished from "../components/Report/Accomplished";
+// import Accomplished from "../components/Report/Accomplished";
 import "./Report.css";
 // import { Calendar } from "react-multi-date-picker";
 // import "react-multi-date-picker/styles/colors/red.css";
@@ -8,12 +8,11 @@ import HeatMap from "@uiw/react-heat-map";
 import Tooltip from "@uiw/react-tooltip";
 import { TasksContext } from "../App";
 import Timer from "../components/Report/Timer/index";
-import { flattenHeatmapData, initializeHeatMap } from "../api/report";
+import { initializeHeatMap } from "../api/report";
 
 const Report = () => {
   const { tasks } = useContext(TasksContext);
   const heatmapData = initializeHeatMap(tasks);
-  console.log(heatmapData);
 
   return (
     <div className="report-page">

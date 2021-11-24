@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import CircleTimer from "./CircleTimer";
 import Intervals from "./Interval";
 import Labels from "./Labels";
@@ -10,59 +10,88 @@ dayjs.extend(require("dayjs/plugin/calendar"));
 
 const getTimeMinutes = (time) => time * 60;
 
-const Timer = ({ addToHistory }) => {
-  const [timeStarted, setTimeStarted] = useState(null);
-  const [timeEnded, setTimeEnded] = useState(null);
-  const [interval, setInterval] = useState(getTimeMinutes(10));
+const initialState = {
+  time_start: "",
+  time_ended: "",
+  interval: getTimeMinutes(10),
+  label: "Study",
+  status: "start",
+};
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "START TIME": {
+      const time_start = dayjs().toISOString();
+      state.time_start = time_start;
+      return { ...state };
+    }
+    case "STOP TIME": {
+      // const time_ended = dayjs().toISOString();
+      const time_ended = dayjs().add(state.interval, "minutes").toISOString();
+      console.log(time_ended);
+      state.time_ended = time_ended;
+      if (action.done) {
+        state.status = "done";
+      }
+      return { ...state };
+    }
+    case "SET INTERVAL": {
+      const { intervalInput } = action;
+      const interval = getTimeMinutes(intervalInput);
+      state.interval = interval;
+      return { ...state };
+    }
+    case "CHANGE LABEL": {
+      const { labelInput } = action;
+      state.label = labelInput;
+      return { ...state };
+    }
+    default:
+      return state;
+  }
+};
+
+const Timer = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [toggleTimer, setToggleTimer] = useState(false);
   const [labels, setLabels] = useState(["Study", "Homework", "Work", "Others"]);
-  const [label, setLabel] = useState("Study");
 
   const changeInterval = (e) => {
-    setInterval(getTimeMinutes(parseInt(e.target.value)));
+    dispatch({
+      type: "SET INTERVAL",
+      intervalInput: parseInt(e.target.value),
+    });
   };
 
-  const startTime = () => {
-    // when timer starts history is being processed
-    if (toggleTimer) {
-      // history.time_end = dayjs().toISOString();
-      setTimeEnded(dayjs(timeStarted).add(interval, "s").toISOString());
-      const timePair = {
-        time_start: timeStarted,
-        time_end: dayjs(timeStarted).add(interval, "s").toISOString(),
-        label: label,
-      };
-      addToHistory(timePair);
-    } else {
-      // history.time_start = dayjs().toISOString();
-      setTimeStarted(dayjs().toISOString());
-    }
-
-    setToggleTimer(!toggleTimer);
+  const handleStartTime = () => {
+    dispatch({ type: "START TIME" });
+    setToggleTimer(true);
   };
 
-  React.useEffect(() => {
-    // console.log(dayjs(timeStarted).toString(), dayjs(timeEnded).toString());
+  const handleStopTime = () => {
+    dispatch({ type: "STOP TIME" });
+    setToggleTimer(false);
+  };
 
-    return () => {
-      // if (history.time_start != NULL) history.time_end = dayjs().toISOString();
-      // if (timeStarted != NULL) history.time_end = dayjs().toISOString();
-      new AbortController().abort();
-    };
-  }, [timeEnded]);
+  const handleOnComplete = () => {
+    dispatch({ type: "STOP TIME", done: true });
+  };
 
   const changeLabel = (e) => {
-    setLabel(e.target.value);
+    dispatch({
+      type: " CHANGE LABEL",
+      label: e.target.value,
+    });
   };
 
   return (
     <>
       <CircleTimer
-        key={interval}
+        key={state.interval}
         colors={[["#EF798A"]]}
-        duration={interval}
+        duration={state.interval}
         isPlaying={toggleTimer}
+        onComplete={handleOnComplete}
       />
 
       <div className="menu">
@@ -70,7 +99,12 @@ const Timer = ({ addToHistory }) => {
           changeInterval={changeInterval}
           intervals={[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]}
         />
-        <button onClick={startTime}>{toggleTimer ? "stop" : "start"}</button>
+        {!toggleTimer ? (
+          <button onClick={handleStartTime}>Start</button>
+        ) : (
+          <button onClick={handleStopTime}>Stop</button>
+        )}
+
         <br />
         <Labels labels={labels} changeLabel={changeLabel} />
       </div>

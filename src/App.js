@@ -9,9 +9,11 @@ import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 import { tasks } from "./context/TasksContext";
+import { timer } from "./context/TimerContext";
 import taskReducer from "./store/task/reducer";
 
 export const TasksContext = React.createContext(tasks);
+export const TimerContext = React.createContext(timer);
 
 const App = () => {
   const [tasksState, dispatch] = useReducer(taskReducer, tasks);
@@ -24,7 +26,7 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/report">
+          <Route key="report" path="/report">
             <Report />
           </Route>
           <Route key="day-tasks" path="/day/:day">

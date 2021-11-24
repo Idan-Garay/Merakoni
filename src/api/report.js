@@ -34,7 +34,11 @@ export const countAccomplishedTasks = (date, accomplishedTasks) => {
 };
 
 export const getAccomplishedTasks = (tasks) => {
-  return tasks.filter((task) => task.date_accomplished.length !== 0);
+  return tasks.filter(
+    (task) =>
+      task.date_accomplished !== undefined &&
+      task.date_accomplished.length !== 0
+  );
 };
 
 export const transformDate = (date) => {
