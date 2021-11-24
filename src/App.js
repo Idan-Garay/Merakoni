@@ -8,6 +8,8 @@ import { Switch, Route } from "react-router-dom";
 import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
+import { tasks } from "./context/TasksContext";
+import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
 
 export const TasksContext = React.createContext(tasks);
@@ -32,7 +34,6 @@ const App = () => {
           <Route key="all-tasks" path="/tasks">
             <TaskPage />
           </Route>
-          ]
           <Route path="/badges">
             <Badge />
           </Route>
