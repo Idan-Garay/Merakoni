@@ -11,8 +11,6 @@
 }
 
 .overview ul {
-  display: list-item;
-  list-style-type: disc;
   padding: 0;
 }
 

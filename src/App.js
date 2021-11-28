@@ -1,13 +1,10 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import TaskPage from "./pages/TaskPage";
 import Report from "./pages/Report";
 import { Switch, Route } from "react-router-dom";
-import * as dayjs from "dayjs";
-dayjs.extend(require("dayjs/plugin/customParseFormat"));
-dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 import { tasks } from "./context/TasksContext";
 import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";

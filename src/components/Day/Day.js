@@ -23,7 +23,9 @@ const Day = (props) => {
       <div className="overview">
         <ul>
           {tasks.map((task, index) => (
-            <li key={index}>{task.description}</li>
+            <li key={index}>
+              <u>{task.description}</u>
+            </li>
           ))}
         </ul>
       </div>
