@@ -2,21 +2,11 @@ import React, { useState, useContext } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 // import { taskData } from "./taskdata";
-// import week from "../data";
 
 function TaskList({ taskData }) {
   const [toDos, setToDos] = useState(taskData);
-  // const [toDos, setToDos] = useState(week[1].tasks);
 
-  const weekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
   const addTodo = (toDo) => {
     if (!toDo.description || /^\s*$/.test(toDo.description)) {
@@ -84,18 +74,16 @@ function TaskList({ taskData }) {
   };
 
   return (
-    <>
-      <div>
-        <h1 className="title">What are your Plans for the Week?</h1>
-        <TaskForm onSubmit={addTodo} />
-        <Task
-          toDos={toDos}
-          completeToDo={completeToDo}
-          removeToDo={removeToDo}
-          updateToDo={updateToDo}
-        />
-      </div>
-    </>
+    <div>
+      <h1 className="title">What are your Plans for the Week?</h1>
+      <TaskForm onSubmit={addTodo} />
+      <Task
+        toDos={toDos}
+        completeToDo={completeToDo}
+        removeToDo={removeToDo}
+        updateToDo={updateToDo}
+      />
+    </div>
   );
 }
 

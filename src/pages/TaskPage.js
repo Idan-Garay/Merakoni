@@ -16,7 +16,8 @@ const TaskPage = () => {
     <main>
       <div id="tasks">
         <TaskList taskData={tasks} />
-        {/* <Labels /> */}
+        {/* <Labels taskData={tasks} /> */}
+        {/* <Labels taskData={tasks} labelData={labels} /> */}
       </div>
     </main>
   );
