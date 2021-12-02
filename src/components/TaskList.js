@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TaskForm from "./Task/TaskForm";
 import Task from "./Task/Task";
@@ -12,7 +13,6 @@ import EditForm from "./Task/EditForm";
 import { getTasksWithinDay } from "../api/days";
 
 function TaskList({ taskData, dispatch, dayName }) {
-  // const [toDos, setToDos] = useState(taskData);
   const weekday = [
     "Sunday",
     "Monday",
@@ -71,5 +71,19 @@ function TaskList({ taskData, dispatch, dayName }) {
     </>
   );
 }
+
+TaskList.propTypes = {
+  taskData: PropTypes.arrayOf(
+    PropTypes.shape({
+      taskId: PropTypes.number,
+      description: PropTypes.string,
+      label: PropTypes.string,
+      todo_date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      date_accomplished: PropTypes.string,
+    })
+  ),
+  dispatch: PropTypes.any,
+  dayName: PropTypes.string,
+};
 
 export default TaskList;

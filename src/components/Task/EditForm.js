@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -74,6 +75,19 @@ const EditForm = (task, show, handleClose, handleEdit) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+EditForm.propTypes = {
+  task: PropTypes.shape({
+    taskId: PropTypes.number,
+    description: PropTypes.string,
+    label: PropTypes.string,
+    todo_date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    date_accomplished: PropTypes.string,
+  }),
+  show: PropTypes.func,
+  handleClose: PropTypes.func,
+  handleEdit: PropTypes.func,
 };
 
 export default EditForm;

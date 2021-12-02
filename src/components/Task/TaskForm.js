@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { getDayFromDayName } from "../../api/days";
 import EditForm from "./EditForm";
@@ -66,5 +67,11 @@ function TaskForm(props) {
     </form>
   );
 }
+
+TaskForm.propTypes = {
+  onSubmit: PropTypes.func,
+  dispatch: PropTypes.any,
+  dayName: PropTypes.string,
+};
 
 export default TaskForm;

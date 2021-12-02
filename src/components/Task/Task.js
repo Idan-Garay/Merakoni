@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 import { MdDelete, MdEdit } from "react-icons/md";
@@ -26,5 +27,19 @@ function Task({ info, completeToDo, removeToDo, handleEditForm, handleShow }) {
     </div>
   );
 }
+
+Task.propTypes = {
+  info: PropTypes.shape({
+    taskId: PropTypes.number,
+    description: PropTypes.string,
+    label: PropTypes.string,
+    todo_date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    date_accomplished: PropTypes.string,
+  }),
+  handleEditForm: PropTypes.func,
+  completeTodo: PropTypes.func,
+  removeTodo: PropTypes.func,
+  updateToDo: PropTypes.func,
+};
 
 export default Task;

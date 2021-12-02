@@ -3,7 +3,6 @@ import TaskList from "../components/TaskList";
 import { useParams, useLocation } from "react-router-dom";
 import { TasksContext } from "../App";
 import "../components/Task.css";
-import * as dayjs from "dayjs";
 
 const TaskPage = (props) => {
   let { day } = useParams();
