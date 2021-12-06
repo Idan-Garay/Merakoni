@@ -11,17 +11,20 @@ const NavBar = () => {
         <Link to="/">
           <li>Dashboard</li>
         </Link>
-        <Link to="/history">
+        {/* <Link to="/history">
           <li>History</li>
-        </Link>
+        </Link> */}
         <Link to="/report">
           <li>Report</li>
         </Link>
-        <Link to="/settings">
+        {/* <Link to="/settings">
           <li>Settings</li>
-        </Link>
+        </Link> */}
         <Link to="/tasks">
           <li>Task</li>
+        </Link>
+        <Link to="/badges">
+          <li>Badges</li>
         </Link>
       </ul>
       <div className="profile">profile</div>

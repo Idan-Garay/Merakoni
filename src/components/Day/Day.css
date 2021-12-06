@@ -11,8 +11,7 @@
 }
 
 .overview ul {
-  display: list-item;
-  list-style-type: circle;
+  padding: 0;
 }
 
 .overview li {
