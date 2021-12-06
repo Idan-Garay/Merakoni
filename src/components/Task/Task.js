@@ -3,11 +3,17 @@ import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { AiOutlineCalendar } from "react-icons/ai";
+import EditForm from "./EditForm";
 
-function Task({ info, completeToDo, removeToDo, handleEditForm, handleShow }) {
+function Task({ info, completeToDo, removeToDo, updateToDo }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleComplete = () => {
     completeToDo(info);
   };
+
+  const handleIsOpen = () => setIsOpen(true);
+
   return (
     <div className={info.date_accomplished ? "todo_row complete" : "todo_row"}>
       <div className="text" onClick={handleComplete}>
@@ -18,12 +24,14 @@ function Task({ info, completeToDo, removeToDo, handleEditForm, handleShow }) {
           <span>{info.label}</span>
         </div>
         <div className="week_day">{/* <AiOutlineCalendar class */}</div>
-        <MdEdit onClick={handleShow} className="edit_icon" />
+        <MdEdit onClick={handleIsOpen} className="edit_icon" />
         <MdDelete
           onClick={() => removeToDo(info.taskId)}
           className="delete_icon"
         />
       </div>
+
+      <EditForm show={isOpen} task={info} handleEdit={updateToDo} />
     </div>
   );
 }

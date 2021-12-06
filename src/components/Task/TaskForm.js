@@ -49,21 +49,17 @@ function TaskForm(props) {
 
   return (
     <form className="todo_form" onSubmit={handleSubmit}>
-      {props.edit ? (
-        <EditForm />
-      ) : (
-        <>
-          <input
-            type="text"
-            placeholder="Enter a task..."
-            value={input}
-            name="text"
-            className="todo_input"
-            onChange={handleChange}
-          />
-          <button className="todo_button">ADD</button>
-        </>
-      )}
+      <>
+        <input
+          type="text"
+          placeholder="Enter a task..."
+          value={input}
+          name="text"
+          className="todo_input"
+          onChange={handleChange}
+        />
+        <button className="todo_button">ADD</button>
+      </>
     </form>
   );
 }

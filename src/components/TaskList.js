@@ -54,7 +54,6 @@ function TaskList({ taskData, dispatch, dayName }) {
                 completeToDo={handleComplete}
                 removeToDo={handleDelete}
                 updateToDo={handleEdit}
-                // handleShow={handleShow}
               />
             ))
           : getTasksWithinDay(taskData, dayName).map((task, index) => (
@@ -64,7 +63,6 @@ function TaskList({ taskData, dispatch, dayName }) {
                 completeToDo={handleComplete}
                 removeToDo={handleDelete}
                 updateToDo={handleEdit}
-                // handleShow={handleShow}
               />
             ))}
       </div>

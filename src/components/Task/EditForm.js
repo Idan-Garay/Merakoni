@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-modal";
+import modalStyles from "./Task.css";
 
-const EditForm = (task, show, handleClose, handleEdit) => {
+const EditForm = ({ task, show, handleClose, handleEdit }) => {
   const [editedTask, setEditedTask] = useState({
     ...task,
   });
+  console.log(editedTask);
 
   const labels = ["Homework", "Project", "Study"];
 
@@ -17,7 +17,8 @@ const EditForm = (task, show, handleClose, handleEdit) => {
     setEditedTask({ ...editedTask });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     handleEdit(task);
   };
 
@@ -25,18 +26,13 @@ const EditForm = (task, show, handleClose, handleEdit) => {
 
   return (
     <Modal
-      show={show}
-      onHide={handleClose}
-      keyboard={false}
-      aria-labelledby="contained-modal-title-vcenter"
-      backdrop
-      centered
+      isOpen={show}
+      parentSelector={() => document.querySelector("#root")}
+      style={modalStyles}
     >
-      <Modal.Header closeButton>
-        <Modal.Title>UPDATE TASK</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <form onSubmit={handleSubmit}>
+      <form className="todo_form" onSubmit={handleSubmit}>
+        <div className="update_form_div">
+          <h1 className="form_title">UPDATE TASK</h1>
           <input
             type="text"
             placeholder="Update task"
@@ -47,13 +43,14 @@ const EditForm = (task, show, handleClose, handleEdit) => {
           />
           <select
             className="todo_input select"
-            value={editedTask.label}
+            defaultValue={editedTask.label}
             onChange={handleChange}
             name="label"
           >
-            <option hidden>Choose a Label</option>
             {labels.map((label, index) => (
-              <option key={index}>{label.name}</option>
+              <option key={index} value={label}>
+                {label}
+              </option>
             ))}
           </select>
           <input
@@ -62,17 +59,11 @@ const EditForm = (task, show, handleClose, handleEdit) => {
             value={editedTask.todo_date}
             className="todo_input edit"
             onChange={handleChange}
-            name="date"
+            name="todo_date"
           />
           <button className="todo_button edit">UPDATE</button>
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        {/* <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button> */}
-        <Button variant="primary">Save</Button>
-      </Modal.Footer>
+        </div>
+      </form>
     </Modal>
   );
 };
@@ -85,7 +76,7 @@ EditForm.propTypes = {
     todo_date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     date_accomplished: PropTypes.string,
   }),
-  show: PropTypes.func,
+
   handleClose: PropTypes.func,
   handleEdit: PropTypes.func,
 };

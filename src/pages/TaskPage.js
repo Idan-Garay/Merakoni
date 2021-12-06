@@ -3,6 +3,9 @@ import TaskList from "../components/TaskList";
 import { useParams, useLocation } from "react-router-dom";
 import { TasksContext } from "../App";
 import "../components/Task.css";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 const TaskPage = (props) => {
   let { day } = useParams();

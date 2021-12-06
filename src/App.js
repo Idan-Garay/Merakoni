@@ -29,7 +29,7 @@ const App = () => {
             <TaskPage />
           </Route>
           <Route key="all-tasks" path="/tasks">
-            <TaskPage />
+            <TaskPage show={true} />
           </Route>
           <Route path="/badges">
             <Badge />
