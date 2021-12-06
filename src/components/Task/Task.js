@@ -12,7 +12,7 @@ function Task({ info, completeToDo, removeToDo, updateToDo }) {
     completeToDo(info);
   };
 
-  const handleIsOpen = () => setIsOpen(true);
+  const handleIsOpen = () => setIsOpen(!isOpen);
 
   return (
     <div className={info.date_accomplished ? "todo_row complete" : "todo_row"}>
@@ -31,7 +31,12 @@ function Task({ info, completeToDo, removeToDo, updateToDo }) {
         />
       </div>
 
-      <EditForm show={isOpen} task={info} handleEdit={updateToDo} />
+      <EditForm
+        show={isOpen}
+        handleClose={handleIsOpen}
+        task={info}
+        handleEdit={updateToDo}
+      />
     </div>
   );
 }

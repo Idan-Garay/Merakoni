@@ -7,7 +7,6 @@ const EditForm = ({ task, show, handleClose, handleEdit }) => {
   const [editedTask, setEditedTask] = useState({
     ...task,
   });
-  console.log(editedTask);
 
   const labels = ["Homework", "Project", "Study"];
 
@@ -16,10 +15,10 @@ const EditForm = ({ task, show, handleClose, handleEdit }) => {
     editedTask[field] = e.target.value;
     setEditedTask({ ...editedTask });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEdit(task);
+    handleEdit(editedTask);
+    handleClose();
   };
 
   const minDate = new Date().toISOString().slice(0, 10);

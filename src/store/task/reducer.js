@@ -14,11 +14,14 @@ const reducer = (state, action) => {
       const { payload } = action;
       const idx = state.findIndex((task) => task.taskId === payload.taskId);
       state[idx] = payload;
+
       return [...state];
     }
     case "COMPLETE TASK": {
       const { payload } = action;
       const idx = state.findIndex((task) => task.taskId === payload.taskId);
+      state[idx] = payload;
+      console.log(state[idx], payload);
       return [...state];
     }
     default:

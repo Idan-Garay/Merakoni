@@ -23,7 +23,7 @@ export const deleteTask = (taskId, dispatch) => {
 
 export const editTask = (task, dispatch) => {
   dispatch({
-    type: DELETE_TASK,
+    type: "EDIT TASK",
     payload: task,
   });
 };
