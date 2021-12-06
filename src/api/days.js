@@ -3,6 +3,18 @@ dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 
+export const getTotalDays = (tasks) => {
+  const accomplishedTasks = Array.from(tasks).filter(
+    (task) => task.date_accomplished.length != 0
+  );
+  const prevTaskDates = [];
+
+  const totalDays = accomplishedTasks.filter(
+    (task) => prevTaskDates.findIndex(task.date_accomplished) == -1
+  );
+  return totalDays.length;
+};
+
 export const getToday = () => {
   return dayjs().format("MM/DD/YYYY");
 };
