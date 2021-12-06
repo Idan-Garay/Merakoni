@@ -1,9 +1,11 @@
 import React from "react";
 import Badges from "../components/Badges/Badges";
 
-const Badge = () => {
+const Badge = ({ tasks }) => {
   return (
-      <Badges />
+    <Badges
+      tasks={tasks.filter((task) => task.date_accomplished.length != 0)}
+    />
   );
 };
 

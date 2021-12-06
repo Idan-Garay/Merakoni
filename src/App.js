@@ -32,7 +32,7 @@ const App = () => {
             <TaskPage show={true} />
           </Route>
           <Route path="/badges">
-            <Badge />
+            <Badge tasks={tasksState} />
           </Route>
         </TasksContext.Provider>
       </Switch>

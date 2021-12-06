@@ -3,15 +3,15 @@ import "./Utilities.css";
 import { FaEllipsisV, FaFilter, FaSearch } from "react-icons/fa";
 import CreateDay from "./CreateDay";
 
-const Utilities = ({toggleModal}) => {
+const Utilities = ({ toggleModal }) => {
   return (
     <div className="utilities">
       <div className="flex-no-wrap">
         <h2>Habit Tracker</h2>
-        <div className="ellipsis-day">
+        {/* <div className="ellipsis-day">
           <FaEllipsisV className="point" />
           <CreateDay toggleModal={toggleModal}/>
-        </div>
+        </div> */}
       </div>
       {/* <div className="search-bar">
         <div className="filter-btn flex-no-wrap">

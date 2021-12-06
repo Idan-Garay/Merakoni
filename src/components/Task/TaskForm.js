@@ -1,26 +1,15 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { getDayFromDayName } from "../../api/days";
-import EditForm from "./EditForm";
-// import { labelData } from "./taskdata";
+import { getToday } from "../../api/days";
 
 function TaskForm(props) {
   const [input, setInputs] = useState(props.edit ? props.edit.description : "");
   const [date, setDate] = useState(props.edit ? props.edit.date_created : "");
   const [label, setLabel] = useState(props.edit ? props.edit.label : "");
-  const [options, setOptions] = useState([]);
-  const minDate = new Date().toISOString().slice(0, 10);
 
   const handleChange = (e) => {
     setInputs(e.target.value);
-  };
-
-  const labelChange = (e) => {
-    setLabel(e.target.value);
-  };
-
-  const dateChange = (e) => {
-    setDate(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -31,7 +20,8 @@ function TaskForm(props) {
       {
         description: input,
         label: label,
-        date_created: date,
+        date_created: getToday(),
+        date_accomplished: "",
         todo_date: dayName !== undefined ? getDayFromDayName(dayName) : date,
       },
       props.dispatch
@@ -41,11 +31,6 @@ function TaskForm(props) {
     setLabel("");
     setDate("");
   };
-
-  // Updates the Label options from the newly created labels
-  // useEffect(() => {
-  //   setOptions(labelData);
-  // }, []);
 
   return (
     <form className="todo_form" onSubmit={handleSubmit}>

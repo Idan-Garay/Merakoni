@@ -1,6 +1,4 @@
-import * as dayjs from "dayjs";
-dayjs.extend(require("dayjs/plugin/customParseFormat"));
-dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
+import { getToday } from "./../../api/days";
 
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
@@ -29,7 +27,7 @@ export const editTask = (task, dispatch) => {
 };
 
 export const completeTask = (task, dispatch) => {
-  task.date_accomplished = dayjs().format("MM/DD/YYYY");
+  task.date_accomplished = getToday();
   dispatch({ type: COMPLETE_TASK, payload: task });
 };
 
