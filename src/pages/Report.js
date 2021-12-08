@@ -8,11 +8,32 @@ import Tooltip from "@uiw/react-tooltip";
 import { TasksContext } from "../App";
 import Timer from "../components/Report/Timer/index";
 import { initializeHeatMap } from "../api/report";
-import { getDoneTasks, getTotalTasks } from "../api/days";
+import { getDayName, getDoneTasks, getToday, getTotalTasks } from "../api/days";
 
 const Report = () => {
   const { tasks } = useContext(TasksContext);
   const heatmapData = initializeHeatMap(tasks);
+  const [weeklyTimes, setWeeklyTimes] = useState([
+    { key: "Sunday", data: 13 },
+    { key: "Monday", data: 2 },
+    { key: "Tuesday", data: 3 },
+    { key: "Wednesday", data: 1 },
+    { key: "Thursday", data: 5 },
+    { key: "Friday", data: 8 },
+    { key: "Saturday", data: 13 },
+  ]);
+  const intervals = [15, 20, 25, 30, 35, 40, 45, 50];
+  const [interval, setInterval] = useState(15);
+
+  const incrementTime = () => {
+    const field = getDayName(getToday());
+    const idx = Array.from(weeklyTimes).findIndex((val) => val.key === field);
+
+    if (idx !== -1) weeklyTimes[idx].data += interval;
+    else console.log("field not found");
+
+    setWeeklyTimes([...weeklyTimes]);
+  };
 
   return (
     <div className="report-page">
@@ -51,21 +72,22 @@ const Report = () => {
           Total Tasks: {getTotalTasks(tasks)}
         </div>
       </div>
-      <div className="yearly-status">
+      <div className="yearly-status" style={{ display: "flex" }}>
         Weekly Status
-        <BarChart
-          width={700}
-          height={200}
-          data={[
-            { key: "Sunday", data: 13 },
-            { key: "Monday", data: 0 },
-            { key: "Tuesday", data: 3 },
-            { key: "Wednesday", data: 1 },
-            { key: "Thursday", data: 5 },
-            { key: "Friday", data: 8 },
-            { key: "Saturday", data: 13 },
-          ]}
-        />
+        <BarChart width={700} height={200} data={weeklyTimes} />
+        <div className="time-sim">
+          <button onClick={incrementTime}>Increment Time</button>
+          <select
+            defaultValue={interval}
+            onChange={(e) => etInterval(parseInt(e.target.value))}
+          >
+            {intervals.map((interval, index) => (
+              <option key={index} value={interval}>
+                {interval}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="records">

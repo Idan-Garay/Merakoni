@@ -28,7 +28,7 @@ const reducer = (state, action) => {
     case "STOP TIME": {
       // const time_ended = dayjs().toISOString();
       const time_ended = dayjs().add(state.interval, "minutes").toISOString();
-      console.log(time_ended);
+      // console.log(time_ended);
       state.time_ended = time_ended;
       if (action.done) {
         state.status = "done";
