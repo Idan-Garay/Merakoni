@@ -8,6 +8,7 @@ import Tooltip from "@uiw/react-tooltip";
 import { TasksContext } from "../App";
 import Timer from "../components/Report/Timer/index";
 import { initializeHeatMap } from "../api/report";
+import { getDoneTasks, getTotalTasks } from "../api/days";
 
 const Report = () => {
   const { tasks } = useContext(TasksContext);
@@ -44,6 +45,11 @@ const Report = () => {
             );
           }}
         />
+        <div className="box">
+          Accomplished Tasks: {getDoneTasks(tasks).length}
+          <br />
+          Total Tasks: {getTotalTasks(tasks)}
+        </div>
       </div>
       <div className="yearly-status">
         Weekly Status

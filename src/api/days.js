@@ -3,6 +3,12 @@ dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 
+export const getDoneTasks = (tasks) => {
+  return Array.from(tasks).filter((task) => task.date_accomplished.length > 0);
+};
+
+export const getTotalTasks = (tasks) => tasks.length;
+
 export const getTotalDays = (tasks) => {
   const accomplishedTasks = Array.from(tasks).filter(
     (task) => task.date_accomplished.length != 0
