@@ -3,6 +3,37 @@ dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 
+export const AverageHabitCompletion = (entries, tasks, label) => {
+  console.table(entries);
+  entries = Array.from(entries).filter((entry) => entry.label === label);
+  tasks = Array.from(tasks).filter((task) => task.label === label);
+  const totalTime = Array.from(entries).reduce(
+    (prev, curr) => getTimeDuration(prev) + getTimeDuration(curr),
+    0
+  );
+
+  console.log(totalTime, tasks.length, "hello");
+  return totalTime / tasks.length;
+};
+
+export const getTimeDuration = (entry) => {
+  const timeStarted = dayjs(entry.time_started);
+  const timeEnded = dayjs(entry.time_ended);
+  return timeEnded.subtract(timeStarted.get("m"), "m").get("m");
+};
+
+export const getTasksofLabel = (tasks, label) => {
+  return Array.from(tasks).filter(
+    (task) => task.label.toLowerCase() === label.toLowerCase()
+  );
+};
+
+export const getEntriesofLabel = (entries, label) => {
+  return Array.from(entries).filter(
+    (entry) => entry.label.toLowerCase() === label.toLowerCase()
+  );
+};
+
 // initializes heatMap by getting the tasks and transforming it to its own data
 export const initializeHeatMap = (tasks) => {
   const accomplishedTasks = getAccomplishedTasks(tasks);

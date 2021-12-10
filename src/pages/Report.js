@@ -7,11 +7,13 @@ import HeatMap from "@uiw/react-heat-map";
 import Tooltip from "@uiw/react-tooltip";
 import { TasksContext } from "../App";
 import Timer from "../components/Report/Timer/index";
-import { initializeHeatMap } from "../api/report";
+import { AverageHabitCompletion, initializeHeatMap } from "../api/report";
 import { getDayName, getDoneTasks, getToday, getTotalTasks } from "../api/days";
+import { timerEntries } from "../context/TimerContext";
 
 const Report = () => {
   const { tasks } = useContext(TasksContext);
+  const [times, setTimes] = useState(timerEntries);
   const heatmapData = initializeHeatMap(tasks);
   const [weeklyTimes, setWeeklyTimes] = useState([
     { key: "Sunday", data: 13 },
@@ -24,7 +26,6 @@ const Report = () => {
   ]);
   const intervals = [15, 20, 25, 30, 35, 40, 45, 50];
   const [interval, setInterval] = useState(15);
-
   const incrementTime = () => {
     const field = getDayName(getToday());
     const idx = Array.from(weeklyTimes).findIndex((val) => val.key === field);
@@ -37,8 +38,35 @@ const Report = () => {
 
   return (
     <div className="report-page">
+      <div className="">
+        Average Habit Completion:{" "}
+        {AverageHabitCompletion(times, tasks, "Study")} minutes/task
+      </div>
+      <div className="yearly-status" style={{ display: "flex" }}>
+        Weekly Status
+        <BarChart width={700} height={200} data={weeklyTimes} />
+        <div className="time-sim">
+          <button onClick={incrementTime}>Increment Time</button>
+          <select
+            defaultValue={interval}
+            onChange={(e) => etInterval(parseInt(e.target.value))}
+          >
+            {intervals.map((interval, index) => (
+              <option key={index} value={interval}>
+                {interval}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="records">
+        Records
+        <div>
+          Timer <Timer addTimeEntry={setTimes} />
+        </div>
+      </div>
       <div className="calendar">
-        Calendar
         <HeatMap
           value={heatmapData}
           startDate={new Date("2021/01/01")}
@@ -70,30 +98,6 @@ const Report = () => {
           Accomplished Tasks: {getDoneTasks(tasks).length}
           <br />
           Total Tasks: {getTotalTasks(tasks)}
-        </div>
-      </div>
-      <div className="yearly-status" style={{ display: "flex" }}>
-        Weekly Status
-        <BarChart width={700} height={200} data={weeklyTimes} />
-        <div className="time-sim">
-          <button onClick={incrementTime}>Increment Time</button>
-          <select
-            defaultValue={interval}
-            onChange={(e) => etInterval(parseInt(e.target.value))}
-          >
-            {intervals.map((interval, index) => (
-              <option key={index} value={interval}>
-                {interval}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="records">
-        Records
-        <div>
-          Timer <Timer />
         </div>
       </div>
     </div>

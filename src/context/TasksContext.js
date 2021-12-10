@@ -270,7 +270,7 @@ export const tasks = [
     taskId: 1,
     description:
       "Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.",
-    label: "Aquamarine",
+    label: "Study",
     date_created: "10/30/2021",
     todo_date: "11/21/2021",
     date_accomplished: "11/1/2021",
@@ -279,7 +279,7 @@ export const tasks = [
     taskId: 2,
     description:
       "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
-    label: "Fuscia",
+    label: "Study",
     date_created: "10/30/2021",
     todo_date: "11/22/2021",
     date_accomplished: "",
@@ -288,7 +288,7 @@ export const tasks = [
     taskId: 3,
     description:
       "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.",
-    label: "Pink",
+    label: "Study",
     date_created: "10/30/2021",
     todo_date: "11/23/2021",
     date_accomplished: "10/31/2021",

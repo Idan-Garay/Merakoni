@@ -11,7 +11,7 @@ dayjs.extend(require("dayjs/plugin/calendar"));
 const getTimeMinutes = (time) => time * 60;
 
 const initialState = {
-  time_start: "",
+  time_started: "",
   time_ended: "",
   interval: getTimeMinutes(10),
   label: "Study",
@@ -21,8 +21,8 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "START TIME": {
-      const time_start = dayjs().toISOString();
-      state.time_start = time_start;
+      const time_started = dayjs().toISOString();
+      state.time_started = time_started;
       return { ...state };
     }
     case "STOP TIME": {
@@ -32,6 +32,7 @@ const reducer = (state, action) => {
       state.time_ended = time_ended;
       if (action.done) {
         state.status = "done";
+        addTimeEntry(state);
       }
       return { ...state };
     }
@@ -51,7 +52,7 @@ const reducer = (state, action) => {
   }
 };
 
-const Timer = () => {
+const Timer = ({ addTimeEntry }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [toggleTimer, setToggleTimer] = useState(false);
   const [labels, setLabels] = useState(["Study", "Homework", "Work", "Others"]);
@@ -74,7 +75,7 @@ const Timer = () => {
   };
 
   const handleOnComplete = () => {
-    dispatch({ type: "STOP TIME", done: true });
+    dispatch({ type: "STOP TIME", done: true, addTimeEntry: addTimeEntry });
   };
 
   const changeLabel = (e) => {
