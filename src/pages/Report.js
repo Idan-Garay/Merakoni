@@ -7,7 +7,11 @@ import HeatMap from "@uiw/react-heat-map";
 import Tooltip from "@uiw/react-tooltip";
 import { TasksContext } from "../App";
 import Timer from "../components/Report/Timer/index";
-import { AverageHabitCompletion, initializeHeatMap } from "../api/report";
+import {
+  AverageHabitCompletion,
+  getStreakOfLabel,
+  initializeHeatMap,
+} from "../api/report";
 import { getDayName, getDoneTasks, getToday, getTotalTasks } from "../api/days";
 import { timerEntries } from "../context/TimerContext";
 
@@ -42,6 +46,7 @@ const Report = () => {
         Average Habit Completion:{" "}
         {AverageHabitCompletion(times, tasks, "Study")} minutes/task
       </div>
+      <div>Streak of [label]: {getStreakOfLabel(tasks, "Study")}</div>
       <div className="yearly-status" style={{ display: "flex" }}>
         Weekly Status
         <BarChart width={700} height={200} data={weeklyTimes} />

@@ -2,9 +2,39 @@ import * as dayjs from "dayjs";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
+dayjs.extend(require("dayjs/plugin/dayOfYear"));
+
+export const getStreakOfLabel = (tasks, label) => {
+  const streak = getLongestStreak(getUniqueDaysOfTasks(tasks, label));
+  return streak;
+};
+
+export const getLongestStreak = (NDays) => {
+  console.log(NDays);
+  let count = 1;
+  let streak = 0;
+  Array.from(NDays).reduce((prev, curr) => {
+    count = Math.abs(prev - curr) === 1 ? count + 1 : 0;
+    if (count > streak) streak = count;
+    return curr;
+  });
+  console.log(streak, "count: ", count);
+  return streak;
+};
+
+export const getUniqueDaysOfTasks = (tasks, label) => {
+  //focus on date since it's the relevant prop it needs.
+  const LTasks = getEntriesofLabel(tasks, label);
+  const DateSet = new Set();
+  LTasks.forEach((task) => {
+    if (task.date_accomplished.length > 0)
+      DateSet.add(dayjs(task.date_accomplished).dayOfYear());
+  });
+
+  return Array.from(DateSet).sort();
+};
 
 export const AverageHabitCompletion = (entries, tasks, label) => {
-  console.table(entries);
   entries = Array.from(entries).filter((entry) => entry.label === label);
   tasks = Array.from(tasks).filter((task) => task.label === label);
   const totalTime = Array.from(entries).reduce(
@@ -12,7 +42,6 @@ export const AverageHabitCompletion = (entries, tasks, label) => {
     0
   );
 
-  console.log(totalTime, tasks.length, "hello");
   return totalTime / tasks.length;
 };
 
