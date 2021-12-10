@@ -8,6 +8,7 @@ import { Switch, Route } from "react-router-dom";
 import { tasks } from "./context/TasksContext";
 import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
+import Report2 from "./pages/Report2";
 
 export const TasksContext = React.createContext(tasks);
 
@@ -23,7 +24,7 @@ const App = () => {
             <Home />
           </Route>
           <Route key="report" path="/report">
-            <Report />
+            <Report2 />
           </Route>
           <Route key="day-tasks" path="/day/:day">
             <TaskPage />
