@@ -1,13 +1,17 @@
-.right-content {
-  border-left: 2px solid #e9736d;
+.main-section {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 90%;
+  margin: 0;
+  overflow: hidden;
 }
 
-.days-section {
-  display: flex;
-  flex-wrap: wrap;
+.left-content {
+  width: 100%;
   height: 100%;
-  justify-content: flex-start;
-  overflow-y: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .day {
@@ -26,4 +30,11 @@
 .days-section {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+  align-content: center;
+  overflow-y: auto;
 }

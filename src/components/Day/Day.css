@@ -1,8 +1,17 @@
 .day {
-  min-height: 15em;
-  width: 24%;
+  min-height: 18em;
+  width: 22%;
   padding: 1em;
   border-radius: 10px;
+}
+
+.day .center {
+  display: flex;
+  justify-content: center;
+}
+
+.day h2 {
+  text-decoration: none;
 }
 
 .overview {

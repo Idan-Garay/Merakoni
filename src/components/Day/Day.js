@@ -15,8 +15,11 @@ const Day = (props) => {
   // days: {Sunday: tasks[], ..., Saturday: tasks[]}
   return (
     <div className="day">
-      <div className="top flex-no-wrap baseline">
-        <Link to={{ pathname: `/day/${day}`, state: { tasks } }}>
+      <div className="top flex-no-wrap baseline center">
+        <Link
+          to={{ pathname: `/day/${day}`, state: { tasks } }}
+          style={{ textDecoration: "none", color: "rgb(40, 40, 40)" }}
+        >
           <h2>{day}</h2>
         </Link>
       </div>

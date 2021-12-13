@@ -4,25 +4,3 @@
   height: 100%;
   color: #3e4044;
 }
-
-.main-section {
-  display: flex;
-  flex-wrap: nowrap;
-  height: 90%;
-  margin: 0;
-  overflow: hidden;
-}
-
-.left-content {
-  width: 70%;
-  height: 100%;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.right-content {
-  width: 30%;
-  padding: 1em;
-  height: 100%;
-}

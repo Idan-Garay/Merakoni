@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Main.css";
 import Utilities from "./Utilities";
 import Day from "./Day/Day";
-import DayForm from "./Day/DayForm";
-import { useParams, Route } from "react-router-dom";
 import { TasksContext } from "../App";
 import { getTasksWithinCurrentWeek } from "../api/days";
 
@@ -27,8 +25,7 @@ const Main = () => {
             })}
           </div>
         </div>
-        <div className="right-content">calendar</div>
-        {/* {showModal && <DayForm toggleModal={toggleModal} />}  makee it a page for functionality */}
+        {/* <div className="right-content">calendar</div> */}
       </main>
     </>
   );
