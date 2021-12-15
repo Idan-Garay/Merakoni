@@ -1,24 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Report.css";
-// import { Calendar } from "react-multi-date-picker";
-// import "react-multi-date-picker/styles/colors/red.css";
-import { BarChart } from "reaviz";
-import HeatMap from "@uiw/react-heat-map";
-import Tooltip from "@uiw/react-tooltip";
+import "./details.css";
 import { TasksContext } from "../App";
-import Timer from "../components/Report/Timer/index";
 import {
-  AverageHabitCompletion,
-  getStreakOfLabel,
+  getAccomplishedTasks,
   initializeHeatMap,
+  getTasksOfToday,
+  getTasksByWeek,
+  getTasksByMonth,
+  getEntriesOfToday,
+  getEntriesByWeek,
+  getEntriesByMonth,
+  getFocusedTime,
+  getLongestStreak,
+  getTotalDaysDone,
 } from "../api/report";
-import { getDayName, getDoneTasks, getToday, getTotalTasks } from "../api/days";
+import { BarChart } from "reaviz";
+import Heatmap from "../components/Report/Heatmap";
+import { getTotalTasks } from "../api/days";
 import { timerEntries } from "../context/TimerContext";
+import { tasksCache, entriesCache } from "../api/cache";
 
 const Report = () => {
   const { tasks } = useContext(TasksContext);
   const [times, setTimes] = useState(timerEntries);
-  const heatmapData = initializeHeatMap(tasks);
+  const [option, setOption] = useState("day");
+  const [currData, setCurrData] = useState(getTasksOfToday(tasksCache));
+  const [currEntries, setCurrEntries] = useState(
+    getEntriesOfToday(entriesCache)
+  );
+  const heatmapData = initializeHeatMap(tasksCache);
+  const [highlightMap, setHighlightMap] = useState(currData);
+
   const [weeklyTimes, setWeeklyTimes] = useState([
     { key: "Sunday", data: 13 },
     { key: "Monday", data: 2 },
@@ -28,81 +41,111 @@ const Report = () => {
     { key: "Friday", data: 8 },
     { key: "Saturday", data: 13 },
   ]);
-  const intervals = [15, 20, 25, 30, 35, 40, 45, 50];
-  const [interval, setInterval] = useState(15);
-  const incrementTime = () => {
-    const field = getDayName(getToday());
-    const idx = Array.from(weeklyTimes).findIndex((val) => val.key === field);
 
-    if (idx !== -1) weeklyTimes[idx].data += interval;
-    else console.log("field not found");
-
-    setWeeklyTimes([...weeklyTimes]);
+  const handleCurrDataEntries = (opt) => {
+    let data = [];
+    let entries = [];
+    setOption(opt);
+    switch (opt) {
+      case "day":
+        data = getTasksOfToday(tasksCache);
+        entries = getEntriesOfToday(entriesCache);
+        break;
+      case "week":
+        data = getTasksByWeek(tasksCache);
+        entries = getEntriesByWeek(entriesCache);
+        break;
+      case "month":
+        data = getTasksByMonth(tasksCache);
+        entries = getEntriesByMonth(entriesCache);
+        break;
+      default:
+        "something went wrong (option)!";
+        break;
+    }
+    setCurrData(data);
+    setCurrEntries(entries);
   };
 
   return (
     <div className="report-page">
-      <div className="">
-        Average Habit Completion:{" "}
-        {AverageHabitCompletion(times, tasks, "Study")} minutes/task
-      </div>
-      <div>Streak of [label]: {getStreakOfLabel(tasks, "Study")}</div>
-      <div className="yearly-status" style={{ display: "flex" }}>
-        Weekly Status
-        <BarChart width={700} height={200} data={weeklyTimes} />
-        <div className="time-sim">
-          <button onClick={incrementTime}>Increment Time</button>
-          <select
-            defaultValue={interval}
-            onChange={(e) => etInterval(parseInt(e.target.value))}
+      <div className="utility">
+        <div className="btn-grp">
+          <button
+            onClick={() => handleCurrDataEntries("day")}
+            className={`utility-buttons ${option === "day" ? "active" : ""}`}
           >
-            {intervals.map((interval, index) => (
-              <option key={index} value={interval}>
-                {interval}
-              </option>
-            ))}
-          </select>
+            Day
+          </button>
+          <button
+            onClick={() => handleCurrDataEntries("week")}
+            className={`utility-buttons ${option === "week" ? "active" : ""}`}
+          >
+            Week
+          </button>
+          <button
+            onClick={() => handleCurrDataEntries("month")}
+            className={`utility-buttons ${option === "month" ? "active" : ""}`}
+          >
+            Month
+          </button>
         </div>
       </div>
-
-      <div className="records">
-        Records
-        <div>
-          Timer <Timer addTimeEntry={setTimes} />
+      <div className="report-details">
+        <div className="details-box">
+          <div>
+            <h1 className="details-h">Focused Time</h1>
+            <div className="numbers-display">
+              <p>
+                <span className="n-tasks">
+                  {getFocusedTime(currEntries)} minutes
+                </span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <h1 className="details-h">Tasks</h1>
+            <div className="numbers-display">
+              <p className="pl">
+                <span className="n-tasks">
+                  {getAccomplishedTasks(currData).length}
+                </span>
+                <span className="total-tasks gray-part">
+                  /{getTotalTasks(currData)}
+                </span>
+              </p>
+            </div>
+            <p className="pl">
+              {getAccomplishedTasks(currData).length} out of{" "}
+              {getTotalTasks(currData)} tasks were accomplished
+            </p>
+          </div>
+          {/* // */}
+          <div>
+            <h1 className="details-h">Longest Streak</h1>
+            <div className="numbers-display">
+              <p>
+                <span className="streak-no">{getLongestStreak(currData)}</span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <h1 className="details-h">Total Days Done</h1>
+            <div className="numbers-display">
+              <p>
+                <span className="streak-no">{getTotalDaysDone(currData)}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="calendar">
-        <HeatMap
-          value={heatmapData}
-          startDate={new Date("2021/01/01")}
-          rectSize={16}
-          width={990}
-          style={{ color: "#ad001d" }}
-          panelColors={{
-            0: "#f4decd",
-            2: "#e4b293",
-            4: "#d48462",
-            10: "#c2533a",
-            20: "#ad001d",
-            30: "#000",
-          }}
-          rectRender={(props, data) => {
-            // if (!data.count) return <rect {...props} />;
-            return (
-              <Tooltip
-                key={props.key}
-                placement="top"
-                content={`Completed Tasks: ${data.count || 0}`}
-              >
-                <rect {...props} />
-              </Tooltip>
-            );
-          }}
-        />
-        <div className="box">
-          Accomplished Tasks: {getDoneTasks(tasks).length}
-          <br />
-          Total Tasks: {getTotalTasks(tasks)}
+      <div className="graphs">
+        <div className="heatmap-box box">
+          Heatmap
+          <Heatmap heatmapData={heatmapData} />
+        </div>
+        <div className="chart-box box">
+          <BarChart data={weeklyTimes} />
         </div>
       </div>
     </div>
