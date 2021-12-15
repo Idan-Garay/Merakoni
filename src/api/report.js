@@ -4,10 +4,41 @@ dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 dayjs.extend(require("dayjs/plugin/dayOfYear"));
 
+// Days streak methods
+
+export const getUniqueDays = (tasks) => {
+  const DateSet = new Set();
+  tasks.forEach((task) => {
+    if (task.date_accomplished.length > 0)
+      DateSet.add(dayjs(task.date_accomplished).dayOfYear());
+  });
+  return Array.from(DateSet).sort();
+};
+
+export const getLongestStreak = (tasks) => {
+  console.log("tasks", tasks);
+  const NDays = getUniqueDays(tasks);
+  console.log(NDays);
+  let count = 1;
+  let streak = 0;
+  Array.from(NDays).reduce((prev, curr) => {
+    count = Math.abs(prev - curr) === 1 ? count + 1 : 1;
+    if (count > streak) streak = count;
+    return curr;
+  }, 1);
+
+  console.log(streak);
+  return streak;
+};
+
+export const getTotalDaysDone = (tasks) => {
+  return getUniqueDays(tasks).length;
+};
+//end
+
 // methods for getting tasks within day, week, month
 export const getTasksOfToday = (tasks) => {
   const today = dayjs().format("MM/DD/YYYY");
-
   const res = tasks.filter((task) => task.todo_date === today);
 
   return res;
@@ -96,19 +127,7 @@ export const getStreakOfLabel = (tasks, label) => {
   return streak;
 };
 
-export const getLongestStreak = (NDays) => {
-  let count = 1;
-  let streak = 0;
-  Array.from(NDays).reduce((prev, curr) => {
-    count = Math.abs(prev - curr) === 1 ? count + 1 : 0;
-    if (count > streak) streak = count;
-    return curr;
-  });
-
-  return streak;
-};
-
-export const getUniqueDaysOfTasks = (tasks, label) => {
+export const getUniqueDaysOfTasks = (tasks) => {
   //focus on date since it's the relevant prop it needs.
   const LTasks = getEntriesofLabel(tasks, label);
   const DateSet = new Set();
@@ -186,7 +205,6 @@ export const countAccomplishedTasks = (date, accomplishedTasks) => {
 
 export const getAccomplishedTasks = (tasks) => {
   return tasks.filter((task) => {
-    console.log("task", task, task.date_accomplished.length !== 0);
     return (
       task.date_accomplished !== undefined &&
       task.date_accomplished.length !== 0

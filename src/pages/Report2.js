@@ -12,6 +12,8 @@ import {
   getEntriesByWeek,
   getEntriesByMonth,
   getFocusedTime,
+  getLongestStreak,
+  getTotalDaysDone,
 } from "../api/report";
 import { BarChart } from "reaviz";
 import Heatmap from "../components/Report/Heatmap";
@@ -113,8 +115,8 @@ const Report2 = () => {
               </p>
             </div>
             <p className="pl">
-              {getDoneTasks(tasks).length} out of {getTotalTasks(tasks)} tasks
-              were accomplished
+              {getAccomplishedTasks(currData).length} out of{" "}
+              {getTotalTasks(currData)} tasks were accomplished
             </p>
           </div>
           {/* // */}
@@ -122,7 +124,7 @@ const Report2 = () => {
             <h1 className="details-h">Longest Streak</h1>
             <div className="numbers-display">
               <p>
-                <span className="streak-no">8</span>
+                <span className="streak-no">{getLongestStreak(currData)}</span>
               </p>
             </div>
           </div>
@@ -130,7 +132,7 @@ const Report2 = () => {
             <h1 className="details-h">Total Days Done</h1>
             <div className="numbers-display">
               <p>
-                <span className="streak-no">8</span>
+                <span className="streak-no">{getTotalDaysDone(currData)}</span>
               </p>
             </div>
           </div>
