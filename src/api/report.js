@@ -4,13 +4,99 @@ dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 dayjs.extend(require("dayjs/plugin/dayOfYear"));
 
+// methods for getting tasks within day, week, month
+export const getTasksOfToday = (tasks) => {
+  const today = dayjs().format("MM/DD/YYYY");
+
+  const res = tasks.filter((task) => task.todo_date === today);
+
+  return res;
+};
+
+export const getTasksByWeek = (tasks) => {
+  const startOfWeek = dayjs().startOf("week");
+  const endOfWeek = dayjs().endOf("week");
+
+  const res = tasks.filter((task) =>
+    dayjs(task.todo_date).isBetween(startOfWeek, endOfWeek, null, "[]")
+  );
+
+  return res;
+};
+
+export const getTasksByMonth = (tasks) => {
+  const startOfMonth = dayjs().startOf("month");
+  const endOfMonth = dayjs().endOf("month");
+
+  const res = tasks.filter((task) =>
+    dayjs(task.todo_date).isBetween(startOfMonth, endOfMonth, null, "[]")
+  );
+
+  return res;
+};
+
+// end
+
+// methods for getting tasks within day, week, month
+
+export const getFocusedTime = (entries) => {
+  let res = 0;
+
+  Array.from(entries).forEach((entry) => {
+    res += getTimeDuration(entry);
+  });
+
+  return res;
+};
+
+export const getTimeDuration = (entry) => {
+  const timeStarted = dayjs(entry.time_started);
+  const timeEnded = dayjs(entry.time_ended);
+  const res = timeEnded.subtract(timeStarted.get("m"), "m").get("m");
+  return res;
+};
+
+export const getEntriesOfToday = (entries) => {
+  const today = dayjs().format("MM/DD/YYYY");
+
+  const res = entries.filter(
+    (entry) => dayjs(entry.time_ended).format("MM/DD/YYYY") === today
+  );
+  return res;
+};
+
+export const getEntriesByWeek = (entries) => {
+  const startOfWeek = dayjs().startOf("week");
+  const endOfWeek = dayjs().endOf("week");
+
+  const res = entries.filter((entry) => {
+    return dayjs(entry.time_ended).isBetween(
+      startOfWeek,
+      endOfWeek,
+      null,
+      "[]"
+    );
+  });
+  return res;
+};
+
+export const getEntriesByMonth = (entries) => {
+  const startOfMonth = dayjs().startOf("month");
+  const endOfMonth = dayjs().endOf("month");
+
+  const res = entries.filter((entry) =>
+    dayjs(entry.time_ended).isBetween(startOfMonth, endOfMonth, null, "[]")
+  );
+  return res;
+};
+// end
+
 export const getStreakOfLabel = (tasks, label) => {
   const streak = getLongestStreak(getUniqueDaysOfTasks(tasks, label));
   return streak;
 };
 
 export const getLongestStreak = (NDays) => {
-  console.log(NDays);
   let count = 1;
   let streak = 0;
   Array.from(NDays).reduce((prev, curr) => {
@@ -18,7 +104,7 @@ export const getLongestStreak = (NDays) => {
     if (count > streak) streak = count;
     return curr;
   });
-  console.log(streak, "count: ", count);
+
   return streak;
 };
 
@@ -45,10 +131,15 @@ export const AverageHabitCompletion = (entries, tasks, label) => {
   return totalTime / tasks.length;
 };
 
-export const getTimeDuration = (entry) => {
-  const timeStarted = dayjs(entry.time_started);
-  const timeEnded = dayjs(entry.time_ended);
-  return timeEnded.subtract(timeStarted.get("m"), "m").get("m");
+export const averageHabitCompletionByDay = (entries) => {
+  const today = dayjs().format("MM/DD/YYYY");
+
+  const res = tasks.filter((task) => task.todo_date === today);
+  const avg = Array.from(res).reduce(
+    (prev, curr) => getTimeDuration(prev) + getTimeDuration(curr),
+    0
+  );
+  return res / res.length;
 };
 
 export const getTasksofLabel = (tasks, label) => {
@@ -94,28 +185,15 @@ export const countAccomplishedTasks = (date, accomplishedTasks) => {
 };
 
 export const getAccomplishedTasks = (tasks) => {
-  return tasks.filter(
-    (task) =>
+  return tasks.filter((task) => {
+    console.log("task", task, task.date_accomplished.length !== 0);
+    return (
       task.date_accomplished !== undefined &&
       task.date_accomplished.length !== 0
-  );
+    );
+  });
 };
 
 export const transformDate = (date) => {
   return dayjs(date).format("");
 };
-
-const x = [
-  { date: "2021/01/11", count: 2 },
-  { date: "2021/01/12", count: 20 },
-  { date: "2021/01/13", count: 10 },
-  ...[...Array(17)].map((_, idx) => ({
-    date: `2021/02/${idx + 10}`,
-    count: idx,
-    content: "",
-  })),
-  { date: "2021/04/11", count: 2 },
-  { date: "2021/05/01", count: 5 },
-  { date: "2021/05/02", count: 5 },
-  { date: "2021/05/04", count: 11 },
-];

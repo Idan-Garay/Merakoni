@@ -1,23 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Report2.css";
 import "./details.css";
 import { TasksContext } from "../App";
 import {
-  AverageHabitCompletion,
   getAccomplishedTasks,
-  getStreakOfLabel,
-  getTasksofLabel,
   initializeHeatMap,
+  getTasksOfToday,
+  getTasksByWeek,
+  getTasksByMonth,
+  getEntriesOfToday,
+  getEntriesByWeek,
+  getEntriesByMonth,
+  getFocusedTime,
 } from "../api/report";
 import { BarChart } from "reaviz";
 import Heatmap from "../components/Report/Heatmap";
 import { getDoneTasks, getTotalTasks } from "../api/days";
 import { timerEntries } from "../context/TimerContext";
+import { tasksCache, entriesCache } from "./../api/cache";
 
 const Report2 = () => {
   const { tasks } = useContext(TasksContext);
   const heatmapData = initializeHeatMap(tasks);
   const [times, setTimes] = useState(timerEntries);
+  const [option, setOption] = useState("day");
+  const [currData, setCurrData] = useState(getTasksOfToday(tasksCache));
+  const [currEntries, setCurrEntries] = useState(
+    getEntriesOfToday(entriesCache)
+  );
 
   const [weeklyTimes, setWeeklyTimes] = useState([
     { key: "Sunday", data: 13 },
@@ -28,23 +38,64 @@ const Report2 = () => {
     { key: "Friday", data: 8 },
     { key: "Saturday", data: 13 },
   ]);
+
+  const handleCurrDataEntries = (opt) => {
+    let data = [];
+    let entries = [];
+    setOption(opt);
+    switch (opt) {
+      case "day":
+        data = getTasksOfToday(tasksCache);
+        entries = getEntriesOfToday(entriesCache);
+        break;
+      case "week":
+        data = getTasksByWeek(tasksCache);
+        entries = getEntriesByWeek(entriesCache);
+        break;
+      case "month":
+        data = getTasksByMonth(tasksCache);
+        entries = getEntriesByMonth(entriesCache);
+        break;
+      default:
+        "something went wrong (option)!";
+        break;
+    }
+    setCurrData(data);
+    setCurrEntries(entries);
+  };
+
   return (
     <div className="report-page">
       <div className="utility">
         <div className="btn-grp">
-          <button className="utility-buttons active">Day</button>
-          <button className="utility-buttons">Week</button>
-          <button className="utility-buttons">Month</button>
+          <button
+            onClick={() => handleCurrDataEntries("day")}
+            className={`utility-buttons ${option === "day" ? "active" : ""}`}
+          >
+            Day
+          </button>
+          <button
+            onClick={() => handleCurrDataEntries("week")}
+            className={`utility-buttons ${option === "week" ? "active" : ""}`}
+          >
+            Week
+          </button>
+          <button
+            onClick={() => handleCurrDataEntries("month")}
+            className={`utility-buttons ${option === "month" ? "active" : ""}`}
+          >
+            Month
+          </button>
         </div>
       </div>
       <div className="report-details">
         <div className="details-box">
           <div>
-            <h1 className="details-h">Average Completion</h1>
+            <h1 className="details-h">Focused Time</h1>
             <div className="numbers-display">
               <p>
                 <span className="n-tasks">
-                  {AverageHabitCompletion(times, tasks, "Study")}
+                  {getFocusedTime(currEntries)} minutes
                 </span>
               </p>
             </div>
@@ -53,9 +104,11 @@ const Report2 = () => {
             <h1 className="details-h">Tasks</h1>
             <div className="numbers-display">
               <p className="pl">
-                <span className="n-tasks">{getDoneTasks(tasks).length}</span>
+                <span className="n-tasks">
+                  {getAccomplishedTasks(currData).length}
+                </span>
                 <span className="total-tasks gray-part">
-                  /{getTotalTasks(tasks)}
+                  /{getTotalTasks(currData)}
                 </span>
               </p>
             </div>
@@ -67,6 +120,14 @@ const Report2 = () => {
           {/* // */}
           <div>
             <h1 className="details-h">Longest Streak</h1>
+            <div className="numbers-display">
+              <p>
+                <span className="streak-no">8</span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <h1 className="details-h">Total Days Done</h1>
             <div className="numbers-display">
               <p>
                 <span className="streak-no">8</span>
