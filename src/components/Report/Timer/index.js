@@ -47,6 +47,11 @@ const reducer = (state, action) => {
       state.label = labelInput;
       return { ...state };
     }
+    case "ACCELERATE": {
+      const { time } = action;
+      state.interval = time;
+      return { ...state };
+    }
     default:
       return state;
   }
@@ -85,8 +90,13 @@ const Timer = ({ addTimeEntry }) => {
     });
   };
 
+  const accelarate = () => {
+    dispatch({ type: "ACCELARATE TIME", time: 1 });
+  };
+
   return (
     <>
+      <button onClick={accelarate}>Accelerate</button>
       <CircleTimer
         key={state.interval}
         colors={[["#EF798A"]]}

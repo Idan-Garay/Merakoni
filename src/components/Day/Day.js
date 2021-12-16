@@ -4,6 +4,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { TasksContext } from "../../App";
 import { getDayName } from "../../api/days";
+import { getAccomplishedTasks } from "../../api/report";
 
 const Day = (props) => {
   const { dispatch } = useContext(TasksContext);
@@ -33,8 +34,8 @@ const Day = (props) => {
         </ul>
       </div>
       <div className="little-details">
-        <p>[{tasks.length}] tasks</p>
-        <p>{day}</p>
+        <p>{getAccomplishedTasks(tasks).length} tasks done</p>
+        <p>{tasks.length} remaining tasks</p>
       </div>
     </div>
   );

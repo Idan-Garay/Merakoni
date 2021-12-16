@@ -27,7 +27,7 @@ const NavBar = () => {
           <li>Badges</li>
         </Link>
       </ul>
-      <div className="profile">profile</div>
+      <div className="profile"></div>
     </nav>
   );
 };
