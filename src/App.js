@@ -8,6 +8,7 @@ import { Switch, Route } from "react-router-dom";
 import { tasks } from "./context/TasksContext";
 import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
+import Timer from "./pages/Timer";
 
 export const TasksContext = React.createContext(tasks);
 
@@ -30,6 +31,9 @@ const App = () => {
           </Route>
           <Route key="all-tasks" path="/tasks">
             <TaskPage show={true} />
+          </Route>
+          <Route key="all-tasks" path="/timer">
+            <Timer />
           </Route>
           <Route path="/badges">
             <Badge tasks={tasksState} />
