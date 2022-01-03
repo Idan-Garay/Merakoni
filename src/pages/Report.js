@@ -1,70 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Report.css";
 import "./details.css";
-import { TasksContext } from "../App";
-import {
-  getAccomplishedTasks,
-  initializeHeatMap,
-  getTasksOfToday,
-  getTasksByWeek,
-  getTasksByMonth,
-  getEntriesOfToday,
-  getEntriesByWeek,
-  getEntriesByMonth,
-  getFocusedTime,
-  getLongestStreak,
-  getTotalDaysDone,
-} from "../api/report";
+
 import { BarChart } from "reaviz";
 import Heatmap from "../components/Report/Heatmap";
 import { getTotalTasks } from "../api/days";
-import { timerEntries } from "../context/TimerContext";
 import { tasksCache, entriesCache } from "../api/cache";
+import {
+  FocusedTime,
+  getEntries,
+  LongestStreak,
+  Tasks,
+  TotalDaysDone,
+  initializeHeatMap,
+  getTasks,
+  getFocusedTimeByWeek,
+} from "../api/report";
 
 const Report = () => {
-  const { tasks } = useContext(TasksContext);
-  const [times, setTimes] = useState(timerEntries);
-  const [option, setOption] = useState("day");
-  const [currData, setCurrData] = useState(getTasksOfToday(tasksCache));
-  const [currEntries, setCurrEntries] = useState(
-    getEntriesOfToday(entriesCache)
-  );
+  const [option, setOption] = useState("d");
+  const [currData, setCurrData] = useState(getTasks(tasksCache, "d"));
+  const [currEntries, setCurrEntries] = useState(getEntries(entriesCache, "d"));
   const heatmapData = initializeHeatMap(tasksCache);
-  const [highlightMap, setHighlightMap] = useState(currData);
-
-  const [weeklyTimes, setWeeklyTimes] = useState([
-    { key: "Sunday", data: 13 },
-    { key: "Monday", data: 2 },
-    { key: "Tuesday", data: 3 },
-    { key: "Wednesday", data: 1 },
-    { key: "Thursday", data: 5 },
-    { key: "Friday", data: 8 },
-    { key: "Saturday", data: 13 },
-  ]);
 
   const handleCurrDataEntries = (opt) => {
     let data = [];
     let entries = [];
-    setOption(opt);
-    switch (opt) {
-      case "day":
-        data = getTasksOfToday(tasksCache);
-        entries = getEntriesOfToday(entriesCache);
-        break;
-      case "week":
-        data = getTasksByWeek(tasksCache);
-        entries = getEntriesByWeek(entriesCache);
-        break;
-      case "month":
-        data = getTasksByMonth(tasksCache);
-        entries = getEntriesByMonth(entriesCache);
-        break;
-      default:
-        "something went wrong (option)!";
-        break;
-    }
+
+    data = getTasks(tasksCache, opt);
+    entries = getEntries(entriesCache, opt);
     setCurrData(data);
     setCurrEntries(entries);
+    setOption(opt);
   };
 
   return (
@@ -72,20 +39,20 @@ const Report = () => {
       <div className="utility">
         <div className="btn-grp">
           <button
-            onClick={() => handleCurrDataEntries("day")}
-            className={`utility-buttons ${option === "day" ? "active" : ""}`}
+            onClick={() => handleCurrDataEntries("d")}
+            className={`utility-buttons ${option === "d" ? "active" : ""}`}
           >
             Day
           </button>
           <button
-            onClick={() => handleCurrDataEntries("week")}
-            className={`utility-buttons ${option === "week" ? "active" : ""}`}
+            onClick={() => handleCurrDataEntries("w")}
+            className={`utility-buttons ${option === "w" ? "active" : ""}`}
           >
             Week
           </button>
           <button
-            onClick={() => handleCurrDataEntries("month")}
-            className={`utility-buttons ${option === "month" ? "active" : ""}`}
+            onClick={() => handleCurrDataEntries("m")}
+            className={`utility-buttons ${option === "m" ? "active" : ""}`}
           >
             Month
           </button>
@@ -98,34 +65,24 @@ const Report = () => {
             <div className="numbers-display">
               <p>
                 <span className="n-tasks">
-                  {getFocusedTime(currEntries)} minutes
+                  {FocusedTime(currEntries)} minutes
                 </span>
               </p>
             </div>
           </div>
           <div>
             <h1 className="details-h">Tasks</h1>
-            <div className="numbers-display">
-              <p className="pl">
-                <span className="n-tasks">
-                  {getAccomplishedTasks(currData).length}
-                </span>
-                <span className="total-tasks gray-part">
-                  /{getTotalTasks(currData)}
-                </span>
-              </p>
-            </div>
             <p className="pl">
-              {getAccomplishedTasks(currData).length} out of{" "}
-              {getTotalTasks(currData)} tasks were accomplished
+              <span className="bold">{Tasks(currData).length}</span> out of{" "}
+              {getTotalTasks(currData)} tasks were accomplished.
             </p>
           </div>
-          {/* // */}
+
           <div>
             <h1 className="details-h">Longest Streak</h1>
             <div className="numbers-display">
               <p>
-                <span className="streak-no">{getLongestStreak(currData)}</span>
+                <span className="streak-no">{LongestStreak(currData)}</span>
               </p>
             </div>
           </div>
@@ -133,7 +90,7 @@ const Report = () => {
             <h1 className="details-h">Total Days Done</h1>
             <div className="numbers-display">
               <p>
-                <span className="streak-no">{getTotalDaysDone(currData)}</span>
+                <span className="streak-no">{TotalDaysDone(currData)}</span>
               </p>
             </div>
           </div>
@@ -145,7 +102,9 @@ const Report = () => {
           <Heatmap heatmapData={heatmapData} />
         </div>
         <div className="chart-box box">
-          <BarChart data={weeklyTimes} />
+          <BarChart
+            data={getFocusedTimeByWeek(getEntries(entriesCache, "w"))}
+          />
         </div>
       </div>
     </div>

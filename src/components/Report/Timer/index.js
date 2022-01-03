@@ -26,10 +26,10 @@ const reducer = (state, action) => {
       return { ...state };
     }
     case "STOP TIME": {
-      // const time_ended = dayjs().toISOString();
       const time_ended = dayjs().add(state.interval, "minutes").toISOString();
-      // console.log(time_ended);
+      const { addTimeEntry } = action;
       state.time_ended = time_ended;
+      console.log(state);
       if (action.done) {
         state.status = "done";
         addTimeEntry(state);
@@ -47,20 +47,27 @@ const reducer = (state, action) => {
       state.label = labelInput;
       return { ...state };
     }
-    case "ACCELERATE": {
+    case "ACCELERATE TIME": {
       const { time } = action;
       state.interval = time;
       return { ...state };
+    }
+    case "RESTART TIME": {
+      const { value } = action;
+      state = { ...state, ...value };
+      console.log("he;;", state);
+      return state;
     }
     default:
       return state;
   }
 };
 
-const Timer = ({ addTimeEntry }) => {
+const Index = ({ addTimeEntry }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [toggleTimer, setToggleTimer] = useState(false);
   const [labels, setLabels] = useState(["Study", "Homework", "Work", "Others"]);
+  let [accel, setAccel] = useState(0);
 
   const changeInterval = (e) => {
     dispatch({
@@ -83,32 +90,51 @@ const Timer = ({ addTimeEntry }) => {
     dispatch({ type: "STOP TIME", done: true, addTimeEntry: addTimeEntry });
   };
 
+  const restartTimer = () => {
+    dispatch({
+      type: "RESTART TIME",
+      value: {
+        time_started: "",
+        time_ended: "",
+        interval: getTimeMinutes(state.interval),
+      },
+    });
+  };
+
   const changeLabel = (e) => {
     dispatch({
-      type: " CHANGE LABEL",
+      type: "CHANGE LABEL",
       label: e.target.value,
     });
   };
 
   const accelarate = () => {
-    dispatch({ type: "ACCELARATE TIME", time: 1 });
+    dispatch({ type: "ACCELERATE TIME", time: 1 });
+    setAccel(accel === 0 ? 1 : 0);
   };
+
+  useEffect(() => {
+    return () => {
+      restartTimer();
+    };
+  }, [accel]);
 
   return (
     <>
       <button onClick={accelarate}>Accelerate</button>
-      <CircleTimer
-        key={state.interval}
-        colors={[["#EF798A"]]}
-        duration={state.interval}
-        isPlaying={toggleTimer}
-        onComplete={handleOnComplete}
-      />
-
-      <div className="menu">
-        <Intervals
-          changeInterval={changeInterval}
-          intervals={[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]}
+      <div className="timer-box">
+        <div className="details">
+          <p></p>
+          <p>Task accomplished: </p>
+          <p>Remaining Tasks:</p>
+          <p></p>
+        </div>
+        <CircleTimer
+          key={accel}
+          colors={[["#EF798A"]]}
+          duration={state.interval}
+          isPlaying={toggleTimer}
+          onComplete={handleOnComplete}
         />
         {!toggleTimer ? (
           <button onClick={handleStartTime}>Start</button>
@@ -116,11 +142,18 @@ const Timer = ({ addTimeEntry }) => {
           <button onClick={handleStopTime}>Stop</button>
         )}
 
-        <br />
-        <Labels labels={labels} changeLabel={changeLabel} />
+        <div className="menu">
+          <Intervals
+            changeInterval={changeInterval}
+            intervals={[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]}
+          />
+
+          <br />
+          <Labels labels={labels} changeLabel={changeLabel} />
+        </div>
       </div>
     </>
   );
 };
 
-export default Timer;
+export default Index;

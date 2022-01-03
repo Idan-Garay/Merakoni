@@ -13,7 +13,7 @@ const renderTime = (dimension, time, seconds) => {
 
 const CircleTimer = (props) => {
   return (
-    <CountdownCircleTimer {...props}>
+    <CountdownCircleTimer {...props} size={350} trailStrokeWidth={3}>
       {({ remainingTime }) =>
         renderTime(
           "minutes",

@@ -1,19 +1,20 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import TaskPage from "./pages/TaskPage";
 import Report from "./pages/Report";
 import { Switch, Route } from "react-router-dom";
-import { tasks } from "./context/TasksContext";
+import { tasksCache, entriesCache } from "./api/cache";
 import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
 import Timer from "./pages/Timer";
 
-export const TasksContext = React.createContext(tasks);
+export const TasksContext = React.createContext(tasksCache);
 
 const App = () => {
-  const [tasksState, dispatch] = useReducer(taskReducer, tasks);
+  const [tasksState, dispatch] = useReducer(taskReducer, tasksCache);
+  const [timeState, setTimeState] = useState([...entriesCache]);
 
   return (
     <div id="app">
@@ -32,8 +33,8 @@ const App = () => {
           <Route key="all-tasks" path="/tasks">
             <TaskPage show={true} />
           </Route>
-          <Route key="all-tasks" path="/timer">
-            <Timer />
+          <Route key="timer" path="/timer">
+            <Timer setTimeState={setTimeState} />
           </Route>
           <Route path="/badges">
             <Badge tasks={tasksState} />
