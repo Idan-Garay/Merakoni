@@ -11,10 +11,14 @@ module.exports = {
   connectToServer: function (callback) {
     client.connect(function (err, db) {
       if (db) {
-        _db = db.db("myFIrstDatabase");
+        _db = db.db("Merakoni0");
         console.log("Successfully connected to MongoDb.");
-      }
+      } else console.log("error");
       return callback(err);
     });
+  },
+
+  getDb: function () {
+    return _db;
   },
 };
