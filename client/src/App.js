@@ -5,11 +5,12 @@ import Home from "./pages/Home";
 import TaskPage from "./pages/TaskPage";
 import Report from "./pages/Report";
 import { Switch, Route } from "react-router-dom";
-import { tasksCache, entriesCache } from "./api/cache";
+import { tasksCache, entriesCache, uploadIntoCurrentWeek } from "./api/cache";
 import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
 import Timer from "./pages/Timer";
 import { getTasks } from "./store/task/actions";
+import axios from "axios";
 
 export const TasksContext = React.createContext(tasksCache);
 
@@ -18,6 +19,7 @@ const App = () => {
   const [timeState, setTimeState] = useState([...entriesCache]);
 
   useEffect(() => {
+    // axios.post("http://localhost:5000/tasks/fill", uploadIntoCurrentWeek());
     getTasks(dispatch);
   }, []);
 
@@ -39,7 +41,7 @@ const App = () => {
             <TaskPage show={true} />
           </Route>
           <Route key="timer" path="/timer">
-            <Timer setTimeState={setTimeState} />
+            <Timer setTimeState={setTimeState} tasksData={tasksState} />
           </Route>
           <Route path="/badges">
             <Badge tasks={tasksState} />

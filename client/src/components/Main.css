@@ -1,7 +1,7 @@
 .main-section {
   display: flex;
   flex-wrap: nowrap;
-  height: 90%;
+  height: 100%;
   margin: 0;
   overflow: hidden;
 }
@@ -16,7 +16,7 @@
 
 .day {
   margin-right: 2em;
-  margin-bottom: 1em;
+  margin-top: 1em;
   background-color: rgba(255, 255, 255, 0.534);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   border: 1px solid #ebf0fa71;
@@ -37,4 +37,5 @@
   justify-content: flex-start;
   align-content: center;
   overflow-y: auto;
+  padding: 1em;
 }

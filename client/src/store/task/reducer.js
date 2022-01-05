@@ -5,6 +5,11 @@ const reducer = (state, action) => {
 
       return [...tasks];
     }
+    case "FILL TASKS": {
+      const { tasks } = action;
+      state.push(tasks);
+      return [...state];
+    }
     case "ADD TASK": {
       const { payload } = action;
 

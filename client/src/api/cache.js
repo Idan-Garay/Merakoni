@@ -1,3 +1,15 @@
+import dayjs from "dayjs";
+
+export const uploadIntoCurrentWeek = () => {
+  let tasks = tasksCache.map((task) => {
+    const pick = Math.floor(Math.random() * 100 + 1) % 7;
+    task.todo_date = dayjs().day(pick).format("MM/DD/YYYY");
+    task.date_accomplished = "";
+    return task;
+  });
+  return tasks;
+};
+
 export const tasksCache = [
   {
     taskId: 1,
@@ -65,7 +77,6 @@ export const tasksCache = [
   },
 ];
 
-import dayjs from "dayjs";
 export const entriesCache = [
   {
     id: 1,

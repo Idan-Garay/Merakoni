@@ -38,38 +38,70 @@ taskRoutes.route("/tasks").post(function (req, res) {
   });
 });
 
-// {
-//   taskId: 1,
-//   description: "Cook Food",
-//   label: "Personal",
-//   date_created: "12/12/2021",
-//   todo_date: "12/26/2021",
-//   date_accomplished: "12/26/2021",
-// },
+// edit task functionality
+taskRoutes.route("/tasks/:id").patch(function (req, res) {
+  let db_connect = dbo.getDb("Merakoni0");
 
-// add new task
-taskRoutes.route("/tasks/:id").post(function (req, res) {
-  let db_connect = dbo.getDb();
-  let myquery = { taskId: ObjectId(req.params.id) };
-  db_connect.collection("tasks").findOne(myquery, function (err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  let task = { ...req.body };
 
-  let newvalues = {
-    $set: {
-      person_name: req.body.person_name,
-      person_position: req.body.person_position,
-      person_level: req.body.person_level,
-    },
-  };
+  if (task._id !== undefined) delete task._id;
+
   db_connect
-    .collection("records")
-    .updateOne(myquery, newvalues, function (err, response) {
-      if (err) throw err;
-      console.log("1 document updated");
-      response.json(res);
-    });
+    .collection("tasks")
+    .findOneAndUpdate(
+      { taskId: task.taskId },
+      { $set: { ...task } },
+      function (err, doc) {
+        if (err) console.log("Something went wrong when updating data!", err);
+        else console.log("edit success");
+      }
+    );
+});
+
+// insert filler tasks
+
+taskRoutes.route("/tasks/fill").post(function (req, res) {
+  let db_connect = dbo.getDb("Merakoni0");
+
+  let tasks = req.body;
+
+  db_connect.collection("tasks").insertMany(tasks, function (err, result) {
+    if (err) console.log("Failed to insert filler tasks", err);
+    else console.log("filler tasks successfully inserted");
+  });
+});
+
+// // add new task
+// taskRoutes.route("/tasks/:id").patch(function (req, res) {
+//   let db_connect = dbo.getDb();
+//   let myquery = { taskId: ObjectId(req.params.id) };
+//   db_connect.collection("tasks").findOne(myquery, function (err, result) {
+//     if (err) throw err;
+//     res.json(result);
+//   });
+
+//   let newvalues = {
+//     $set: {
+//       person_name: req.body.person_name,
+//       person_position: req.body.person_position,
+//       person_level: req.body.person_level,
+//     },
+//   };
+//   db_connect
+//     .collection("tasks")
+//     .updateOne(myquery, newvalues, function (err, response) {
+//       if (err) throw err;
+//       console.log("1 document updated");
+//       response.json(res);
+//     });
+// });
+
+taskRoutes.route("/tasks/:id").delete(function (req, res) {
+  let db_connect = dbo.getDb("Merakoni0");
+
+  let { taskId } = req.body;
+
+  db_connect.collection("tasks").deleteOne({ taskId: taskId });
 });
 
 module.exports = taskRoutes;

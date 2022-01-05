@@ -7,10 +7,10 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const TaskPage = (props) => {
+const TaskPage = () => {
   let { day } = useParams();
   let { tasks, dispatch } = React.useContext(TasksContext);
-  console.log("hello", tasks);
+
   return (
     <main>
       <div id="tasks">

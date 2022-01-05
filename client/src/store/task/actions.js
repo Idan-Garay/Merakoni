@@ -2,6 +2,7 @@ import { getToday } from "./../../api/days";
 import axios from "axios";
 
 const GET_TASKS = "GET TASKS";
+const FILL_TASKS = "FILL TASK";
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
 const EDIT_TASK = "EDIT TASK";
@@ -10,7 +11,9 @@ const COMPLETE_TASK = "COMPLETE TASK";
 export const getTasks = (dispatch) => {
   axios
     .get("http://localhost:5000/tasks")
-    .then((res) => dispatch({ type: GET_TASKS, tasks: res.data }))
+    .then((res) => {
+      dispatch({ type: GET_TASKS, tasks: res.data });
+    })
     .catch((err) =>
       console.log("something went wrong with retrieving tasks", err)
     );
@@ -28,17 +31,33 @@ export const addTask = (task, dispatch) => {
 };
 
 export const deleteTask = (taskId, dispatch) => {
-  dispatch({
-    type: DELETE_TASK,
-    taskId,
-  });
+  axios
+    .delete(`http://localhost:5000/tasks/${taskId}`, {
+      data: { taskId: taskId },
+    })
+    .then(
+      dispatch({
+        type: DELETE_TASK,
+        taskId,
+      })
+    )
+    .catch((err) =>
+      console.log("something went wrong with retrieving tasks", err)
+    );
 };
 
 export const editTask = (task, dispatch) => {
-  dispatch({
-    type: "EDIT TASK",
-    payload: task,
-  });
+  axios
+    .patch(`http://localhost:5000/tasks/${task.taskId}`, task)
+    .then(
+      dispatch({
+        type: EDIT_TASK,
+        payload: task,
+      })
+    )
+    .catch((err) =>
+      console.log("something went wrong with retrieving tasks", err)
+    );
 };
 
 export const completeTask = (task, dispatch) => {
