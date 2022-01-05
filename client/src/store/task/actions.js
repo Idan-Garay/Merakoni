@@ -61,8 +61,11 @@ export const editTask = (task, dispatch) => {
 };
 
 export const completeTask = (task, dispatch) => {
-  task.date_accomplished = getToday();
-  dispatch({ type: COMPLETE_TASK, payload: task });
+  task.date_accomplished =
+    task.date_accomplished.length === 0
+      ? (task.date_accomplished = getToday())
+      : task.date_accomplished;
+  editTask(task, dispatch);
 };
 
 // export const addTodo = (state, value) => {

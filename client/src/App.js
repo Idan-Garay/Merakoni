@@ -10,7 +10,6 @@ import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
 import Timer from "./pages/Timer";
 import { getTasks } from "./store/task/actions";
-import axios from "axios";
 
 export const TasksContext = React.createContext(tasksCache);
 
