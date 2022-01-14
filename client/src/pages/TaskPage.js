@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import TaskList from "../components/TaskList";
 import { useParams, useLocation } from "react-router-dom";
 import { TasksContext } from "../App";
@@ -10,7 +10,6 @@ Modal.setAppElement("#root");
 const TaskPage = () => {
   let { day } = useParams();
   let { tasks, dispatch } = React.useContext(TasksContext);
-
   return (
     <main>
       <div id="tasks">

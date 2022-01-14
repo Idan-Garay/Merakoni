@@ -28,14 +28,20 @@ const Day = (props) => {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
-              <u>{task.description}</u>
+              <span
+                className={task.date_accomplished ? "done-task" : "undone-task"}
+              >
+                {task.description}
+              </span>
             </li>
           ))}
         </ul>
       </div>
       <div className="little-details">
         <p>{getAccomplishedTasks(tasks).length} tasks done</p>
-        <p>{tasks.length} remaining tasks</p>
+        <p>
+          {tasks.length - getAccomplishedTasks(tasks).length} remaining tasks
+        </p>
       </div>
     </div>
   );

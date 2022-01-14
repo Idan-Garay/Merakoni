@@ -1,6 +1,6 @@
 import React from "react";
 import "./NavBar.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -8,24 +8,38 @@ const NavBar = () => {
       <h1>Merakoni</h1>
 
       <ul>
-        <Link to="/">
+        <NavLink to="/" style={{ textDecoration: "none" }}>
           <li>Dashboard</li>
-        </Link>
+        </NavLink>
         {/* <Link to="/history">
           <li>History</li>
         </Link> */}
-        <Link to="/report">
+        <NavLink
+          to="/report"
+          style={{ textDecoration: "none" }}
+          className={(isActive) => (isActive ? "link-active" : "link-inactive")}
+        >
           <li>Report</li>
-        </Link>
+        </NavLink>
         {/* <Link to="/settings">
           <li>Settings</li>
         </Link> */}
-        <Link to="/tasks">
+        <NavLink
+          to="/tasks"
+          style={{ textDecoration: "none" }}
+          className={(isActive) => (isActive ? "link-active" : "link-inactive")}
+        >
           <li>Task</li>
-        </Link>
-        <Link to="/badges">
+        </NavLink>
+        <NavLink
+          to="/badges"
+          style={{ textDecoration: "none" }}
+          style={(isActive) => ({
+            color: isActive ? "#fa8172" : "black",
+          })}
+        >
           <li>Badges</li>
-        </Link>
+        </NavLink>
       </ul>
       <div className="profile"></div>
     </nav>

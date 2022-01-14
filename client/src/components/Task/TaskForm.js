@@ -18,6 +18,7 @@ function TaskForm(props) {
     const { dayName } = props;
     props.onSubmit(
       {
+        taskId: props.nextId,
         description: input,
         label: label,
         date_created: getToday(),

@@ -5,6 +5,14 @@
   border-radius: 10px;
 }
 
+.done-task {
+  text-decoration: line-through;
+}
+
+.undone-task {
+  text-decoration: underline;
+}
+
 .day .center {
   display: flex;
   justify-content: center;

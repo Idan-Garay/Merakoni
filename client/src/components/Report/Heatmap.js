@@ -2,13 +2,14 @@ import React from "react";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from "react-tooltip";
+import dayjs from "dayjs";
 
 const Heatmap = ({ heatmapData }) => {
   return (
     <div>
       <CalendarHeatmap
-        startDate={new Date("2021-01-01")}
-        endDate={new Date("2021-12-31")}
+        startDate={dayjs().subtract(1, "year").format("YYYY-MM-DD")}
+        endDate={dayjs().format("YYYY-MM-DD")}
         values={heatmapData}
         tooltipDataAttrs={(value) => {
           return {

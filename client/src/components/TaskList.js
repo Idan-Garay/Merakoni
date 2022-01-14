@@ -25,17 +25,16 @@ function TaskList({ taskData, dispatch, dayName }) {
     completeTask(task, dispatch);
   };
 
-  // const handleModal = () => (
-  //   <Button variant="primary" onClick={handleShow}>
-  //     Launch static backdrop modal
-  //   </Button>
-  // );
-
   return (
     <>
       <div>
         <h1 className="title">What are your Plans for the Week?</h1>
-        <TaskForm onSubmit={addTask} dispatch={dispatch} dayName={dayName} />
+        <TaskForm
+          onSubmit={addTask}
+          dispatch={dispatch}
+          dayName={dayName}
+          nextId={taskData.length ? taskData[taskData.length - 1] : 1}
+        />
         {dayName === undefined
           ? taskData.map((task, index) => (
               <Task

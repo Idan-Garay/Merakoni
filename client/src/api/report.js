@@ -23,9 +23,29 @@ export const getEntries = (entries, opt) => {
   );
 };
 
-export const getTasks = (tasks, opt) => {
+export const getTasksForTimer = (tasks, opt) => {
   let start = dayjs().startOf("month");
   let end = dayjs().endOf("month");
+
+  if (opt === "m") {
+  } else if (opt === "w") {
+    start = dayjs().startOf("week");
+    end = dayjs().endOf("week");
+  } else if (opt === "d") {
+    start = dayjs().startOf("day");
+    end = dayjs().endOf("day");
+  }
+
+  const res = tasks.filter((task) =>
+    dayjs(task.todo_date).isBetween(start, end, null, "[]")
+  );
+
+  return res.length ? res : [];
+};
+
+export const getTasks = (tasks, opt) => {
+  let start = dayjs().subtract(1, "month");
+  let end = dayjs();
 
   if (opt === "m") {
   } else if (opt === "w") {
@@ -60,24 +80,27 @@ export const LongestStreak = (tasks) => {
       uniqueDays.add(dayjs(task.date_accomplished).dayOfYear());
   });
 
-  uniqueDays = Array.from(uniqueDays).sort(
-    (a, b) =>
-      dayjs(a.date_accomplished).get("day") -
-      dayjs(b.date_accomplished).get("day")
-  );
+  uniqueDays = Array.from(uniqueDays).sort((a, b) => a - b);
 
-  let count = 1;
-  const res = Array.from(uniqueDays).reduce((prev, curr) => {
-    count = Math.abs(prev - curr) === 1 ? count + 1 : 1;
-    if (count > streak) streak = count;
-    return curr;
-  }, 1);
+  let count = 0;
+
+  if (uniqueDays.length >= 0) {
+    const res = Array.from(uniqueDays).reduce((prev, curr) => {
+      count = Math.abs(prev - curr) === 1 ? count + 1 : 1;
+      if (count > streak) streak = count;
+      return curr;
+    }, uniqueDays[0]);
+  } else {
+    streak = count;
+  }
 
   return streak;
 };
 
 export const TotalDaysDone = (entries) => {
-  const accTasks = entries.filter((entry) => entry.date_accomplished !== 0);
+  const accTasks = entries.filter(
+    (entry) => entry.date_accomplished.length !== 0
+  );
   const uniqueDays = new Set();
 
   Array.from(accTasks).forEach((task) => {
@@ -121,13 +144,17 @@ export const getAccomplishedTasks = (tasks) => {
 };
 
 export const FocusedTime = (entries) => {
-  return Array.from(entries).reduce((prev, curr) => {
-    return (
-      prev +
-      (dayjs(curr.time_ended).get("minutes") -
-        dayjs(curr.time_started).get("minutes"))
-    );
+  const res = Array.from(entries).reduce((prev, curr) => {
+    if (curr.time_ended.length !== 0)
+      return (
+        prev +
+        (dayjs(curr.time_ended).get("minutes") -
+          dayjs(curr.time_started).get("minutes"))
+      );
+    else return prev;
   }, 0);
+
+  return res;
 };
 
 export const getFocusedTimeByWeek = (entries) => {
@@ -144,8 +171,10 @@ export const getFocusedTimeByWeek = (entries) => {
   let idx;
 
   Array.from(entries).forEach((entry) => {
-    idx = dayjs(entry.time_ended).get("day");
-    weekEntries[idx].push = entry;
+    if (entry.time_ended.length !== 0) {
+      idx = dayjs(entry.time_ended).get("day");
+      weekEntries[idx].push = entry;
+    }
   });
 
   weekEntries = weekEntries.map((dayEntries, index) => {
@@ -154,6 +183,6 @@ export const getFocusedTimeByWeek = (entries) => {
       data: FocusedTime(dayEntries),
     };
   });
-  console.log(weekEntries, "hello");
+
   return weekEntries;
 };

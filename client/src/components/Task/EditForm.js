@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import modalStyles from "./Task.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const EditForm = ({ task, show, handleClose, handleEdit }) => {
   const [editedTask, setEditedTask] = useState({
@@ -11,8 +13,12 @@ const EditForm = ({ task, show, handleClose, handleEdit }) => {
   const labels = ["Homework", "Project", "Study"];
 
   const handleChange = (e) => {
-    const field = e.target.name;
-    editedTask[field] = e.target.value;
+    let { value, name } = e.target;
+
+    if (name === "todo_date") {
+      value = new Date(value).toLocaleDateString();
+    }
+    editedTask[name] = value;
     setEditedTask({ ...editedTask });
   };
   const handleSubmit = (e) => {
@@ -52,13 +58,15 @@ const EditForm = ({ task, show, handleClose, handleEdit }) => {
               </option>
             ))}
           </select>
-          <input
-            type="date"
-            min={minDate}
-            value={editedTask.todo_date}
-            className="todo_input edit"
+          <DatePicker
+            selected={
+              editedTask.todo_date.length
+                ? new Date(editedTask.todo_date)
+                : new Date()
+            }
             onChange={handleChange}
             name="todo_date"
+            className="todo_input edit"
           />
           <button className="todo_button edit">UPDATE</button>
         </div>

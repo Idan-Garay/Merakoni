@@ -3,17 +3,19 @@ import CircleTimer from "./CircleTimer";
 import Intervals from "./Interval";
 import Labels from "./Labels";
 import * as dayjs from "dayjs";
+import { getDoneTasks } from "../../../api/days";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/toObject"));
 dayjs.extend(require("dayjs/plugin/calendar"));
+import axios from "axios";
 
 const getTimeMinutes = (time) => time * 60;
 
 const initialState = {
   time_started: "",
   time_ended: "",
-  interval: getTimeMinutes(10),
+  interval: 10,
   label: "Study",
   status: "start",
 };
@@ -22,40 +24,34 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "START TIME": {
       const time_started = dayjs().toISOString();
-      state.time_started = time_started;
-      return { ...state };
+
+      return { ...state, time_started: time_started };
     }
     case "STOP TIME": {
-      const time_ended = dayjs().add(state.interval, "minutes").toISOString();
-      const { addTimeEntry } = action;
-      state.time_ended = time_ended;
-      console.log(state);
+      let time_ended = dayjs().toISOString();
+
       if (action.done) {
         state.status = "done";
-        addTimeEntry(state);
+        time_ended = dayjs().add(state.interval, "minutes").toISOString();
       }
-      return { ...state };
+      return { ...state, time_ended: time_ended };
     }
     case "SET INTERVAL": {
       const { intervalInput } = action;
       const interval = getTimeMinutes(intervalInput);
-      state.interval = interval;
-      return { ...state };
+      return { ...state, interval: interval };
     }
     case "CHANGE LABEL": {
       const { labelInput } = action;
-      state.label = labelInput;
-      return { ...state };
+
+      return { ...state, label: labelInput };
     }
     case "ACCELERATE TIME": {
-      const { time } = action;
-      state.interval = time;
-      return { ...state };
+      return { ...state, interval: 0.01 };
     }
     case "RESTART TIME": {
       const { value } = action;
       state = { ...state, ...value };
-      console.log("he;;", state);
       return state;
     }
     default:
@@ -63,17 +59,18 @@ const reducer = (state, action) => {
   }
 };
 
-const Index = ({ addTimeEntry }) => {
+const Index = ({ tasks }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [toggleTimer, setToggleTimer] = useState(false);
   const [labels, setLabels] = useState(["Study", "Homework", "Work", "Others"]);
-  let [accel, setAccel] = useState(0);
+  let [accel, setAccel] = useState(state.interval);
 
   const changeInterval = (e) => {
     dispatch({
       type: "SET INTERVAL",
       intervalInput: parseInt(e.target.value),
     });
+    setAccel(parseInt(e.target.value));
   };
 
   const handleStartTime = () => {
@@ -87,7 +84,15 @@ const Index = ({ addTimeEntry }) => {
   };
 
   const handleOnComplete = () => {
-    dispatch({ type: "STOP TIME", done: true, addTimeEntry: addTimeEntry });
+    dispatch({ type: "STOP TIME", done: true });
+    axios.post("http://localhost:5000/time", state).catch((err) => {
+      console.log(err);
+    });
+
+    setAccel(state.interval);
+    restartTimer();
+
+    setToggleTimer(false);
   };
 
   const restartTimer = () => {
@@ -96,7 +101,7 @@ const Index = ({ addTimeEntry }) => {
       value: {
         time_started: "",
         time_ended: "",
-        interval: getTimeMinutes(state.interval),
+        interval: state.interval,
       },
     });
   };
@@ -109,30 +114,24 @@ const Index = ({ addTimeEntry }) => {
   };
 
   const accelarate = () => {
-    dispatch({ type: "ACCELERATE TIME", time: 1 });
-    setAccel(accel === 0 ? 1 : 0);
+    dispatch({ type: "ACCELERATE TIME", time: 0.1 });
+    setAccel(accel !== 0.01 ? 0.01 : state.interval);
   };
-
-  useEffect(() => {
-    return () => {
-      restartTimer();
-    };
-  }, [accel]);
 
   return (
     <>
-      <button onClick={accelarate}>Accelerate</button>
+      {/* <button onClick={accelarate}>Accelerate</button> */}
       <div className="timer-box">
         <div className="details">
           <p></p>
-          <p>Task accomplished: </p>
-          <p>Remaining Tasks:</p>
+          <p>Tasks accomplished: {getDoneTasks(tasks).length}</p>
+          <p>Remaining Tasks: {tasks.length - getDoneTasks(tasks).length}</p>
           <p></p>
         </div>
         <CircleTimer
           key={accel}
           colors={[["#EF798A"]]}
-          duration={state.interval}
+          duration={getTimeMinutes(accel)}
           isPlaying={toggleTimer}
           onComplete={handleOnComplete}
         />

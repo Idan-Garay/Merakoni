@@ -25,7 +25,6 @@ const Main = () => {
             })}
           </div>
         </div>
-        {/* <div className="right-content">calendar</div> */}
       </main>
     </>
   );

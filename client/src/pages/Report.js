@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Report.css";
 import "./details.css";
 
 import { BarChart } from "reaviz";
 import Heatmap from "../components/Report/Heatmap";
 import { getTotalTasks } from "../api/days";
-import { tasksCache, entriesCache } from "../api/cache";
 import {
   FocusedTime,
   getEntries,
@@ -17,22 +16,29 @@ import {
   getFocusedTimeByWeek,
 } from "../api/report";
 
+import { TasksContext } from "../App";
+
 const Report = () => {
+  const { tasks, entries, dispatch } = useContext(TasksContext);
   const [option, setOption] = useState("d");
-  const [currData, setCurrData] = useState(getTasks(tasksCache, "d"));
-  const [currEntries, setCurrEntries] = useState(getEntries(entriesCache, "d"));
-  const heatmapData = initializeHeatMap(tasksCache);
+  const [currData, setCurrData] = useState(getTasks(tasks, "d"));
+  const [currEntries, setCurrEntries] = useState(getEntries(entries, "d"));
+  const heatmapData = initializeHeatMap(tasks);
 
   const handleCurrDataEntries = (opt) => {
     let data = [];
-    let entries = [];
+    let timeEntries = [];
 
-    data = getTasks(tasksCache, opt);
-    entries = getEntries(entriesCache, opt);
+    data = getTasks(tasks, opt);
+    timeEntries = getEntries(entries, opt);
     setCurrData(data);
-    setCurrEntries(entries);
+    setCurrEntries(timeEntries);
     setOption(opt);
   };
+
+  useEffect(() => {
+    handleCurrDataEntries(option);
+  }, [option]);
 
   return (
     <div className="report-page">
@@ -102,8 +108,17 @@ const Report = () => {
           <Heatmap heatmapData={heatmapData} />
         </div>
         <div className="chart-box box">
+          {/* <BarChart data={getFocusedTimeByWeek(getEntries(entries, "w"))} /> */}
           <BarChart
-            data={getFocusedTimeByWeek(getEntries(entriesCache, "w"))}
+            data={[
+              { key: "Sunday", data: 50 },
+              { key: "Monday", data: 40 },
+              { key: "Tuesday", data: 0 },
+              { key: "Wednesday", data: 0 },
+              { key: "Thursday", data: 0 },
+              { key: "Friday", data: 0 },
+              { key: "Saturday", data: 0 },
+            ]}
           />
         </div>
       </div>

@@ -30,7 +30,6 @@ taskRoutes.route("/tasks").post(function (req, res) {
   let db_connect = dbo.getDb("Merakoni0");
 
   let task = { ...req.body };
-  console.log("hello", req.body);
 
   db_connect.collection("tasks").insertOne(task, function (err, result) {
     if (err) throw err;

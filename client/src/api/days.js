@@ -4,7 +4,12 @@ dayjs.extend(require("dayjs/plugin/isSameOrBefore"));
 dayjs.extend(require("dayjs/plugin/isBetween"));
 
 export const getDoneTasks = (tasks) => {
-  return Array.from(tasks).filter((task) => task.date_accomplished.length > 0);
+  let res;
+  if (tasks !== undefined)
+    res = Array.from(tasks).filter((task) => task.date_accomplished.length > 0);
+  else res = [];
+
+  return res;
 };
 
 export const getTotalTasks = (tasks) => tasks.length;
@@ -75,7 +80,7 @@ export const getDayFromDayName = (dayName) => {
 
   let dayN = days.findIndex((day) => day === dayName);
   if (dayN !== -1) {
-    dayN = dayjs().day(dayN);
+    dayN = dayjs().day(dayN).format("MM/DD/YYYY");
   } else {
     console.log("error dayN is -1");
   }

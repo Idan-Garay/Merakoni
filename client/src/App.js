@@ -5,28 +5,50 @@ import Home from "./pages/Home";
 import TaskPage from "./pages/TaskPage";
 import Report from "./pages/Report";
 import { Switch, Route } from "react-router-dom";
-import { tasksCache, entriesCache, uploadIntoCurrentWeek } from "./api/cache";
-import taskReducer from "./store/task/reducer";
 import Badge from "./pages/Badge";
 import Timer from "./pages/Timer";
-import { getTasks } from "./store/task/actions";
+import reducer from "./store/task/store";
+import axios from "axios";
+import { uploadIntoCurrentWeek } from "./api/cache";
 
-export const TasksContext = React.createContext(tasksCache);
+export const TasksContext = React.createContext();
+
+const initialState = {
+  tasks: [],
+  entries: [],
+  labels: [],
+};
 
 const App = () => {
-  const [tasksState, dispatch] = useReducer(taskReducer, []);
-  const [timeState, setTimeState] = useState([...entriesCache]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     // axios.post("http://localhost:5000/tasks/fill", uploadIntoCurrentWeek());
-    getTasks(dispatch);
+    axios
+      .get("http://localhost:5000/tasks")
+      .then((res) => {
+        dispatch({ type: "Read Tasks", payload: res.data });
+      })
+      .catch((err) =>
+        console.log("something went wrong with retrieving tasks", err)
+      );
+    axios
+      .get("http://localhost:5000/time")
+      .then((res) => {
+        dispatch({ type: "Read Entries", payload: res.data });
+      })
+      .catch((err) =>
+        console.log("something went wrong with retrieving tasks", err)
+      );
   }, []);
 
   return (
     <div id="app">
       <NavBar />
       <Switch>
-        <TasksContext.Provider value={{ tasks: tasksState, dispatch }}>
+        <TasksContext.Provider
+          value={{ entries: state.entries, tasks: state.tasks, dispatch }}
+        >
           <Route exact path="/">
             <Home />
           </Route>
@@ -40,10 +62,10 @@ const App = () => {
             <TaskPage show={true} />
           </Route>
           <Route key="timer" path="/timer">
-            <Timer setTimeState={setTimeState} tasksData={tasksState} />
+            <Timer dispatch={dispatch} taskData={state.tasks} />
           </Route>
           <Route path="/badges">
-            <Badge tasks={tasksState} />
+            <Badge tasks={state.tasks} />
           </Route>
         </TasksContext.Provider>
       </Switch>
