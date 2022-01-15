@@ -1,0 +1,41 @@
+.main-section {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.left-content {
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  margin-right: 2em;
+  margin-top: 1em;
+  background-color: rgba(255, 255, 255, 0.534);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ebf0fa71;
+}
+
+.days-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.days-section {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+  align-content: center;
+  overflow-y: auto;
+  padding: 1em;
+}
